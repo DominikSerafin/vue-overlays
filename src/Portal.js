@@ -30,6 +30,7 @@ export default {
     */
     this.portalElement();
     this.$emit('rendered');
+
   },
 
   updated: function(){
@@ -40,11 +41,11 @@ export default {
   beforeDestroy: function(){
     var root = this.$refs.root;
 
-    // with this I was  trying to remove the leftover empty comment elements appended to body
-    // that happen when you nest Portals in Portals
-    //this.$parent.$vnode.elm.remove();
-    //this.$parent.$vnode.elm.appendChild(root);
-    //this.$_containerElement.removeChild(root);
+    // this is sketchy...
+    // but it's there to ensure that there won't be any comment nodes leftover
+    // and any new portals will always be appended last to the container
+    // pull requests welcome for less sketchy solution...
+    this.$parent.$vnode.elm.remove();
 
     root ? root.remove() : null;
 
