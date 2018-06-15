@@ -1,3 +1,13 @@
+/*
+  TODO:
+
+  * Passing DOM attributes like aria-* to modals
+
+*/
+
+
+
+
 import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
 import Modal from './Modal.js';

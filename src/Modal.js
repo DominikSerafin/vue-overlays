@@ -10,7 +10,7 @@ import ModalManager from './ModalManager.js';
 
 
 
-const modalStyles = {
+const rootStyles = {
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -19,11 +19,6 @@ const modalStyles = {
   zIndex: 1300,
   top: 0,
   left: 0,
-}
-
-
-const hiddenStyles = {
-  visibility: 'hidden',
 }
 
 
@@ -59,6 +54,21 @@ export default {
       default: false,
     },
 
+    disableAutoFocus: {
+      type: Boolean,
+      default: false,
+    },
+
+    disableRestoreFocus: {
+      type: Boolean,
+      default: false,
+    },
+
+    disableEnforceFocus: {
+      type: Boolean,
+      default: false,
+    },
+
 
   },
 
@@ -72,6 +82,13 @@ export default {
   },
 
   watch: {
+
+    '$props.open': function(newVal, oldVal){
+      if (!oldVal && newVal) {
+        this.checkForFocus();
+      }
+    },
+
   },
 
   beforeCreate: function(){
@@ -91,6 +108,9 @@ export default {
   },
 
   updated: function(){
+
+
+
 
     if (this.$props.open) {
       this.handleOpen();
@@ -113,10 +133,13 @@ export default {
     handleRendered: function(){
       this.$_mountNode = this.$refs.portal.$refs.root;
 
-      //this.autoFocus();
+      this.autoFocus();
       this.$emit('rendered');
 
     },
+
+
+
 
     getOrCreateManager: function(){
       // i didn't know how to port the manager from React props to Vue version in "proper" way
@@ -152,9 +175,9 @@ export default {
       this.$_manager.remove(this.$_mountNode);
 
       doc.removeEventListener('keydown', this.handleDocumentKeyDown);
-      doc.removeEventListener('focus', this.enforceFocus);
+      doc.removeEventListener('focus', this.enforceFocus, true);
 
-      //this.restoreLastFocus();
+      this.restoreLastFocus();
 
     },
 
@@ -189,6 +212,96 @@ export default {
 
 
 
+
+
+
+    checkForFocus: function(){
+      if (inDOM) {
+        this.$_lastFocus = activeElement();
+      }
+    },
+
+
+
+    autoFocus: function(){
+      if (this.$props.disableAutoFocus) return;
+
+      this.$nextTick(function(){
+        if (this.$props.disableAutoFocus) return;
+
+        var modalEl = this.$refs.portal.$el.childNodes[1];
+
+        const currentActiveElement = activeElement(ownerDocument(this.$_mountNode));
+
+        if (modalEl && !contains(modalEl, currentActiveElement)) {
+          this.$_lastFocus = currentActiveElement;
+          if (!modalEl.hasAttribute('tabIndex')) {
+            console.warn(
+              'Vue-Overlays: the modal content node does not accept focus. ' +
+              'For the benefit of assistive technologies, ' +
+              'the tabIndex of the node is being set to "-1".'
+            );
+            modalEl.setAttribute('tabIndex', -1);
+          }
+          modalEl.focus();
+        }
+
+      });
+
+    },
+
+
+
+    restoreLastFocus: function(){
+      if (this.$props.disableRestoreFocus) return;
+
+      this.$nextTick(function(){
+        if (this.$props.disableRestoreFocus) return;
+
+        if (this.$_lastFocus) {
+          // Not all elements in IE11 have a focus method.
+          // Because IE11 market share is low, we accept the restore focus being broken
+          // and we silent the issue.
+          if (this.$_lastFocus.focus) {
+            this.$_lastFocus.focus();
+          }
+
+          this.$_lastFocus = null;
+        }
+      });
+
+    },
+
+
+
+
+    enforceFocus: function(){
+      if (this.$props.disableEnforceFocus) return;
+
+      this.$nextTick(function(){
+
+        if (this.$props.disableEnforceFocus || !this.isTopModal()) {
+          return;
+        }
+
+        var modalEl = this.$refs.portal.$el.childNodes[1];
+
+        const currentActiveElement = activeElement(ownerDocument(this.$_mountNode));
+
+        if (modalEl && !contains(modalEl, currentActiveElement)) {
+          modalEl.focus();
+        }
+
+      });
+    },
+
+
+
+
+
+
+
+
     isTopModal: function(){
       return this.$_manager.isTopModal(this.$_mountNode);
     },
@@ -206,21 +319,15 @@ export default {
     if (!this.$props.open) return;
 
 
-    var style = this.$props.hideBackdrop ?
-      Object.assign(modalStyles, hiddenStyles) : modalStyles;
-
-    var modal = h('div', {
-    }, this.$slots.default);
-
 
 
 
     var backdrop = this.$props.hideBackdrop ? null : h('Backdrop', {
+      ref: 'backdrop',
       attrs: {open: this.$props.open},
       nativeOn: {
         'click': this.handleBackdropClick,
       },
-      ref: 'backdrop',
     });
 
 
@@ -228,11 +335,11 @@ export default {
 
     var portal = h('Portal', {
       ref: 'portal',
-      style: style,
+      style: rootStyles,
       on: {
         'rendered': this.handleRendered,
       },
-    }, [modal, backdrop]);
+    }, [backdrop, this.$slots.default]);
 
 
     return portal;

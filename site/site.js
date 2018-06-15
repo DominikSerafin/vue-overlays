@@ -39,6 +39,40 @@ var app = new Vue({
       this.$forceUpdate();
 
     },
+
+
+    rand: function() {
+      return Math.round(Math.random() * 20) - 10;
+    },
+
+    getModalStyle: function (no) {
+      if( this['_modalStyleCached'+no] ) {
+        return this['_modalStyleCached'+no];
+      }
+
+      const top = 50 + this.rand();
+      const left = 50 + this.rand();
+
+      var style = {
+
+        width: '400px',
+        padding: '32px',
+        position: 'absolute',
+
+
+        background: 'white',
+        top: top + '%',
+        left: left + '%',
+        transform: `translate(-${top}%, -${left}%)`,
+      };
+
+
+      this['_modalStyleCached'+no] = style;
+
+      return style;
+
+    },
+
   },
 
 });
