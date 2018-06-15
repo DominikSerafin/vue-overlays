@@ -1,3 +1,4 @@
+
 Vue.component('Portal', window.vo.Portal);
 
 var app = new Vue({
@@ -7,6 +8,13 @@ var app = new Vue({
     window: function(){
       return window || null;
     },
+  },
+
+  data: function(){
+    return {
+      count: 1,
+      portalTarget: null,
+    };
   },
 
   mounted: function(){

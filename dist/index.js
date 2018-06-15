@@ -86,6 +86,30 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/Modal.js":
+/*!**********************!*\
+  !*** ./src/Modal.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.default=void 0;var _default={props:{},data:function data(){return{};},computed:{},watch:{},mounted:function mounted(){},updated:function updated(){},beforeDestroy:function beforeDestroy(){},methods:{},render:function render(h){return h('div',{attrs:{tabindex:'-1'},ref:'root'},this.$slots.default);}};exports.default=_default;\n\n//# sourceURL=webpack:///./src/Modal.js?");
+
+/***/ }),
+
+/***/ "./src/Popover.js":
+/*!************************!*\
+  !*** ./src/Popover.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.default=void 0;var _default={props:{},data:function data(){return{};},computed:{},watch:{},mounted:function mounted(){},updated:function updated(){},beforeDestroy:function beforeDestroy(){},methods:{},render:function render(h){return h('div',{attrs:{tabindex:'-1'},ref:'root'},this.$slots.default);}};exports.default=_default;\n\n//# sourceURL=webpack:///./src/Popover.js?");
+
+/***/ }),
+
 /***/ "./src/Portal.js":
 /*!***********************!*\
   !*** ./src/Portal.js ***!
@@ -94,7 +118,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.default=void 0;var _default={props:{target:{type:[String,Object]//default: function(){\n//  return window.body;\n//},\n//validator: function(value){\n//  return typeof value === 'object';\n//},\n}},data:function data(){return{};},computed:{},watch:{},mounted:function mounted(){/*\n      https://vuejs.org/v2/api/#mounted\n      Note that mounted does not guarantee that all child components have also been mounted. If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted:\n    */this.portalElement();},updated:function updated(){this.portalElement();},beforeDestroy:function beforeDestroy(){this.removeElement();},methods:{getTargetElement:function getTargetElement(){var target;if(typeof this.$props.target==='string'){target=document.querySelector(this.$props.target);if(!target){console.error('Can\\'t find element with provided query selector to Portal target prop.');return;};}else{target=window.body;}return target;},portalElement:function portalElement(){var root=this.$refs.root;var target=this.getTargetElement();if(!root)return;if(!target)return;if(root.parentElement!==target){target.appendChild(root);}},removeElement:function removeElement(){var root=this.$refs.root;root?root.remove():null;}},render:function render(h){this.$nextTick(function(){//this.portalElement();\nthis.$emit('rendered');});return h('div',{attrs:{tabindex:'-1'},ref:'root'},this.$slots.default);}};exports.default=_default;\n\n//# sourceURL=webpack:///./src/Portal.js?");
+eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.default=void 0;var _domHelpers=_interopRequireDefault(__webpack_require__(/*! ./util/domHelpers.js */ \"./src/util/domHelpers.js\"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _default={props:{target:{type:[String,Object]//default: function(){\n//  return window.body;\n//},\n//validator: function(value){\n//  return typeof value === 'object';\n//},\n}},data:function data(){return{};},computed:{},watch:{},mounted:function mounted(){console.warn(_domHelpers.default.scrollbarSize());/*\n      https://vuejs.org/v2/api/#mounted\n      Note that mounted does not guarantee that all child components have also been mounted.\n      If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted.\n    */this.portalElement();},updated:function updated(){this.portalElement();},beforeDestroy:function beforeDestroy(){var root=this.$refs.root;root?root.remove():null;},methods:{setTargetElement:function setTargetElement(){if(typeof this.$props.target==='string'){var queriedElement=document.querySelector(this.$props.target);if(!queriedElement){console.error('Can\\'t find element with provided query selector to Portal target prop.');return;};this._targetElement=queriedElement;}else{this._targetElement=window.document.body;}return this._targetElement;},portalElement:function portalElement(){this.setTargetElement();var target=this._targetElement;var root=this.$refs.root;if(!root)return;if(!target)return;// checks whether target was already appended...\nif(root.parentElement==target)return;target.appendChild(root);}},render:function render(h){this.$nextTick(function(){//this.portalElement();\nthis.$emit('rendered');});return h('div',{ref:'root'},this.$slots.default);}};exports.default=_default;\n\n//# sourceURL=webpack:///./src/Portal.js?");
 
 /***/ }),
 
@@ -106,7 +130,19 @@ eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.default
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("var _Portal=_interopRequireDefault(__webpack_require__(/*! ./Portal.js */ \"./src/Portal.js\"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}//if (typeof window !== typeof void 0) {\nwindow.vo={Portal:_Portal.default,Modal:null,Popover:null//}\n/*------------------------------------*\\\r\n    Expose / Autoinstall\r\n  \\*------------------------------------*/ /*\r\n  if (typeof exports === 'object' && typeof module === 'object') {\r\n    module.exports = XXXXX;\r\n  } else if (typeof define === 'function' && define.amd) {\r\n    define(function () { return XXXXX });\r\n  } else if (typeof window !== typeof void 0) {\r\n    window.XXXXX = XXXXX;\r\n  }\r\n\r\n  if (typeof Vue !== typeof void 0) {\r\n    Vue.use(XXXXX);\r\n  }\r\n\r\n*/};\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("var _Portal=_interopRequireDefault(__webpack_require__(/*! ./Portal.js */ \"./src/Portal.js\"));var _Modal=_interopRequireDefault(__webpack_require__(/*! ./Modal.js */ \"./src/Modal.js\"));var _Popover=_interopRequireDefault(__webpack_require__(/*! ./Popover.js */ \"./src/Popover.js\"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _typeof(obj){if(typeof Symbol===\"function\"&&typeof Symbol.iterator===\"symbol\"){_typeof=function _typeof(obj){return typeof obj;};}else{_typeof=function _typeof(obj){return obj&&typeof Symbol===\"function\"&&obj.constructor===Symbol&&obj!==Symbol.prototype?\"symbol\":typeof obj;};}return _typeof(obj);}if((typeof window===\"undefined\"?\"undefined\":_typeof(window))!==_typeof(void 0)){window.vo={Portal:_Portal.default,Modal:_Modal.default,Popover:_Popover.default};};/*------------------------------------*\\\r\n    Expose / Autoinstall\r\n  \\*------------------------------------*/ /*\r\n  if (typeof exports === 'object' && typeof module === 'object') {\r\n    module.exports = XXXXX;\r\n  } else if (typeof define === 'function' && define.amd) {\r\n    define(function () { return XXXXX });\r\n  } else if (typeof window !== typeof void 0) {\r\n    window.XXXXX = XXXXX;\r\n  }\r\n\r\n  if (typeof Vue !== typeof void 0) {\r\n    Vue.use(XXXXX);\r\n  }\r\n\r\n*/\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/util/domHelpers.js":
+/*!********************************!*\
+  !*** ./src/util/domHelpers.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("Object.defineProperty(exports,\"__esModule\",{value:true});exports.ownerDocument=ownerDocument;exports.ownerWindow=ownerWindow;exports.canUseDOM=canUseDOM;exports.scrollbarSize=scrollbarSize;exports.default=void 0;function ownerDocument(node){return node&&node.ownerDocument||document;}function ownerWindow(node){var doc=ownerDocument(node);return doc&&doc.defaultView||doc.parentWindow;}function canUseDOM(){return!!(typeof window!=='undefined'&&window.document&&window.document.createElement);}function scrollbarSize(recalc){var size;if(!size&&size!==0||recalc){if(canUseDOM()){var scrollDiv=document.createElement('div');scrollDiv.style.position='absolute';scrollDiv.style.top='-9999px';scrollDiv.style.width='50px';scrollDiv.style.height='50px';scrollDiv.style.overflow='scroll';document.body.appendChild(scrollDiv);size=scrollDiv.offsetWidth-scrollDiv.clientWidth;document.body.removeChild(scrollDiv);}}return size;}var _default={ownerDocument:ownerDocument,ownerWindow:ownerWindow,scrollbarSize:scrollbarSize};exports.default=_default;\n\n//# sourceURL=webpack:///./src/util/domHelpers.js?");
 
 /***/ })
 

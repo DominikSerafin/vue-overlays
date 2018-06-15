@@ -1,3 +1,4 @@
+import domHelpers from './util/domHelpers.js';
 export default {
 
   props: {
@@ -25,9 +26,11 @@ export default {
   },
 
   mounted: function(){
+    console.warn(domHelpers.scrollbarSize());
     /*
       https://vuejs.org/v2/api/#mounted
-      Note that mounted does not guarantee that all child components have also been mounted. If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted:
+      Note that mounted does not guarantee that all child components have also been mounted.
+      If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted.
     */
     this.portalElement();
   },
@@ -37,42 +40,39 @@ export default {
   },
 
   beforeDestroy: function(){
-    this.removeElement();
+    var root = this.$refs.root;
+    root ? root.remove() : null;
   },
 
   methods: {
 
-    getTargetElement: function(){
-      var target;
+    setTargetElement: function(){
       if (typeof this.$props.target === 'string') {
-        target = document.querySelector(this.$props.target);
-        if (!target) {
+        var queriedElement = document.querySelector(this.$props.target);
+        if (!queriedElement) {
           console.error('Can\'t find element with provided query selector to Portal target prop.')
           return;
         };
+        this._targetElement = queriedElement;
       } else {
-        target = window.body;
+        this._targetElement = window.document.body;
       }
-      return target;
+      return this._targetElement;
     },
 
     portalElement: function(){
+      this.setTargetElement();
 
+      var target = this._targetElement;
       var root = this.$refs.root;
-      var target = this.getTargetElement();
 
       if (!root) return;
       if (!target) return;
 
-      if (root.parentElement!==target) {
-        target.appendChild(root);
-      }
+      // checks whether target was already appended...
+      if (root.parentElement==target) return;
 
-    },
-
-    removeElement: function(){
-      var root = this.$refs.root;
-      root ? root.remove() : null;
+      target.appendChild(root);
     },
 
   },
@@ -82,7 +82,7 @@ export default {
       //this.portalElement();
       this.$emit('rendered');
     });
-    return h('div', {attrs: {tabindex: '-1'}, ref: 'root'}, this.$slots.default);
+    return h('div', {ref: 'root'}, this.$slots.default);
   },
 
 };

@@ -1,13 +1,16 @@
 import Portal from './Portal.js';
+import Modal from './Modal.js';
+import Popover from './Popover.js';
 
-
-//if (typeof window !== typeof void 0) {
+if (typeof window !== typeof void 0){
   window.vo = {
     Portal: Portal,
-    Modal: null,
-    Popover: null,
+    Modal: Modal,
+    Popover: Popover,
   }
-//}
+};
+
+
 
 
   /*------------------------------------*\

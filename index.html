@@ -39,14 +39,20 @@
       <header>
         <h1>Vue Overlays</h1>
         <p>Portal, Modal, Popover.</p>
+        <p>Debug count: {{count}}</p>
+        <p>Debug portalTarget: {{portalTarget}}</p>
+
 
       </header>
 
       <section>
 
+        <button type="button" @click="count++">Add Count</button>
+        <button type="button" @click="(portalTarget=portalTarget?null:'.js-custom-target')">Toggle Portal Target</button>
+
         <h3>Portal original position in DOM:</h3>
         <div>
-          <Portal @rendered="onRendered">This content should be rendered appended to body</Portal>
+          <Portal @rendered="onRendered" :target="portalTarget || void 0">This content should be rendered appended to body</Portal>
         </div>
 
         <h3>Portal custom DOM target:</h3>
