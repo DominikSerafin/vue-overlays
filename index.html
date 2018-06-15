@@ -52,18 +52,17 @@
         <p>$state.count: {{count}}</p>
         <p>._portalContainer: {{this._portalContainer ? this._portalContainer.nodeName : 'undefined' }}</p>
 
-        <button type="button"
-        @click="togglePortalContainer">
-        Toggle Portal Container
+        <button type="button" @click="togglePortalContainer">
+          Toggle Portal Container
         </button>
 
         <h3>Portal original position in DOM:</h3>
         <div>
-        <Portal @rendered="onRendered" :container="this._portalContainer">
-        <div class="portal-content">
-        This content should be rendered appended to body
-        </div>
-        </Portal>
+          <Portal @rendered="onRendered" :container="this._portalContainer">
+            <div class="portal-content">
+            This content should be rendered appended to body
+            </div>
+          </Portal>
         </div>
 
         <h3>Portal custom DOM container:</h3>

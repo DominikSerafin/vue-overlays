@@ -42,9 +42,9 @@ export default {
     var root = this.$refs.root;
 
     // this is sketchy...
-    // but it's there to ensure that there won't be any comment nodes leftover
+    // but it's there to ensure that there won't be any comment nodes left tover
     // and any new portals will always be appended last to the container
-    // pull requests welcome for less sketchy solution...
+    // (pull requests welcome for less sketchy solution...)
     this.$parent.$vnode.elm.remove();
 
     root ? root.remove() : null;
