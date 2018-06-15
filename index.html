@@ -49,18 +49,20 @@
         <h2>Modal Debug</h2>
 
 
+        <button type="button" @click="count++">count + 1</button>
         <p>$state.count: {{count}}</p>
         <p>$state.modalOpen1: {{modalOpen1}}</p>
         <p>$state.modalOpen2: {{modalOpen2}}</p>
         <p>$state.modalOpen3: {{modalOpen3}}</p>
 
-        <button type="button" @click="count++">Add Count</button>
 
 
         <h3>Modal:</h3>
         <div>
 
           <button type="button" @click="modalOpen1=!modalOpen1">Toggle Modal 1</button>
+          <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
+          <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
           <Modal :open="modalOpen1" @close-request="modalOpen1=false">
             Hello Modal World 1!
@@ -68,8 +70,10 @@
           </Modal>
 
           <Modal :open="modalOpen2" @close-request="modalOpen2=false">
-            Hello Modal World 2!
-            <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+            <div style="background:white;">
+              Hello Modal World 2!
+              <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+            </div>
           </Modal>
 
           <Modal :open="modalOpen3" @close-request="modalOpen3=false">Hello Modal World 3!</Modal>
@@ -83,26 +87,27 @@
 
         <h2>Portal Debug</h2>
 
-        <p>.count: {{count}}</p>
-        <p>._portalTarget: {{this._portalTarget ? this._portalTarget.nodeName : 'undefined' }}</p>
+        <button type="button" @click="count++">count + 1</button>
 
-        <button type="button" @click="count++">Add Count</button>
+        <p>$state.count: {{count}}</p>
+        <p>._portalContainer: {{this._portalContainer ? this._portalContainer.nodeName : 'undefined' }}</p>
+
         <button type="button"
-          @click="togglePortalTarget">
-          Toggle Portal Target
+          @click="togglePortalContainer">
+          Toggle Portal Container
         </button>
 
         <h3>Portal original position in DOM:</h3>
         <div>
-          <Portal @rendered="onRendered" :target="this._portalTarget">
+          <Portal @rendered="onRendered" :container="this._portalContainer">
             <div class="portal-content">
               This content should be rendered appended to body
             </div>
           </Portal>
         </div>
 
-        <h3>Portal custom DOM target:</h3>
-        <div class="js-custom-target"></div>
+        <h3>Portal custom DOM container:</h3>
+        <div class="js-custom-container"></div>
 
       </section>
       -->

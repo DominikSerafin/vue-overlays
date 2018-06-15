@@ -1,7 +1,13 @@
-import ownerDocument from './dom-helpers/ownerDocument';
+import activeElement from './util/dom-helpers/activeElement';
+import contains from './util/dom-helpers/query/contains';
+import inDOM from './util/dom-helpers/util/inDOM';
+import ownerDocument from './util/dom-helpers/ownerDocument';
+//import { createChainedFunction } from './util/helpers';
 
 import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
+import ModalManager from './ModalManager.js';
+
 
 
 const modalStyles = {
@@ -45,6 +51,11 @@ export default {
       default: false,
     },
 
+    manager: {
+      default: function(){
+        return new ModalManager();
+      },
+    },
 
 
   },
@@ -106,7 +117,7 @@ export default {
       const doc = ownerDocument(this.$refs.modal);
 
       //const container = getContainer(this.props.container, doc.body);
-      //this.props.manager.add(this, container);
+      //this.$props.manager.add(this, container);
 
       doc.addEventListener('keydown', this.handleDocumentKeyDown);
       doc.addEventListener('focus', this.enforceFocus, true);

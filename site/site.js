@@ -29,11 +29,11 @@ var app = new Vue({
     onRendered: function(){
     },
 
-    togglePortalTarget: function(){
-      if(this._portalTarget) {
-        this._portalTarget = void 0;
+    togglePortalContainer: function(){
+      if(this._portalContainer) {
+        this._portalContainer = void 0;
       } else {
-        this._portalTarget = window.document.querySelector('.js-custom-target');
+        this._portalContainer = window.document.querySelector('.js-custom-container');
       }
 
       this.$forceUpdate();

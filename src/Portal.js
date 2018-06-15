@@ -1,8 +1,8 @@
-import ownerDocument from './dom-helpers/ownerDocument';
+import ownerDocument from './util/dom-helpers/ownerDocument';
 export default {
 
   props: {
-    target: {
+    container: {
       //default: function(){
       //  return window.body;
       //},
@@ -32,10 +32,12 @@ export default {
       If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted.
     */
     this.portalElement();
+    this.$emit('rendered');
   },
 
   updated: function(){
     this.portalElement();
+    this.$emit('rendered');
   },
 
   beforeDestroy: function(){
@@ -45,37 +47,37 @@ export default {
 
   methods: {
 
-    setTargetElement: function(){
-      if (this.$props.target) {
-        this._targetElement = this.$props.target;
+    setContainerElement: function(){
+      if (this.$props.container) {
+        this._containerElement = this.$props.container;
       } else {
-        this._targetElement = ownerDocument(this.$refs.root).body;
+        this._containerElement = ownerDocument(this.$refs.root).body;
       }
-      return this._targetElement;
+      return this._containerElement;
     },
 
     portalElement: function(){
-      this.setTargetElement();
+      this.setContainerElement();
 
-      var target = this._targetElement;
+      var container = this._containerElement;
       var root = this.$refs.root;
 
       if (!root) return;
-      if (!target) return;
+      if (!container) return;
 
-      // checks whether target was already appended...
-      if (root.parentElement==target) return;
+      // checks whether container was already appended...
+      if (root.parentElement==container) return;
 
-      target.appendChild(root);
+      container.appendChild(root);
     },
 
   },
 
   render: function(h) {
-    this.$nextTick(function(){
+    //this.$nextTick(function(){
       //this.portalElement();
-      this.$emit('rendered');
-    });
+      //this.$emit('rendered');
+    //});
     return h('div', {ref: 'root'}, this.$slots.default);
   },
 

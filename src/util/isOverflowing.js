@@ -1,9 +1,9 @@
-// https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Modal/isOverflowing.js
+// Taken from (with some potential modifications)  https://github.com/mui-org/material-ui/blob/7a412df351bbec25957215a27e94250f49f5e142/packages/material-ui/src/Modal/isOverflowing.js
 
+import isWindow from './dom-helpers/query/isWindow';
+import ownerDocument from './dom-helpers/ownerDocument';
+import ownerWindow from './ownerWindow';
 
-import isWindow from 'dom-helpers/query/isWindow';
-import ownerDocument from 'dom-helpers/ownerDocument';
-import ownerWindow from '../utils/ownerWindow';
 
 export function isBody(node) {
   return node && node.tagName.toLowerCase() === 'body';
