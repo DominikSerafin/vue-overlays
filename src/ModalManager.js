@@ -6,23 +6,6 @@ import getScrollbarSize from './util/dom-helpers/util/scrollbarSize';
 import isOverflowing from './util/isOverflowing';
 import { ariaHidden, hideSiblings, showSiblings } from './util/manageAriaHidden';
 
-/*
-findIndex(array, key, value) {
-  var index = -1;
-  //var result = null;
-  for (var i = 0; i < array.length; i++) {
-    index++;
-    if (array[i][key] === value) {
-      //result = array[i];
-      break;
-    }
-  }
-  return index;
-}
-*/
-
-
-
 function findIndexOf(data, callback) {
   let idx = -1;
   data.some((item, index) => {
@@ -108,7 +91,6 @@ class ModalManager {
 
   add(modal, container) {
     let modalIdx = this.modals.indexOf(modal);
-    //let modalIdx = findIndex(this.modals, 'id', modal.id);
 
     if (modalIdx !== -1) {
       return modalIdx;
