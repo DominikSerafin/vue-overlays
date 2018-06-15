@@ -50,16 +50,29 @@
 
 
         <p>$state.count: {{count}}</p>
-        <p>$state.modalOpen: {{modalOpen}}</p>
+        <p>$state.modalOpen1: {{modalOpen1}}</p>
+        <p>$state.modalOpen2: {{modalOpen2}}</p>
+        <p>$state.modalOpen3: {{modalOpen3}}</p>
 
         <button type="button" @click="count++">Add Count</button>
 
-        <button type="button" @click="modalOpen=!modalOpen">Open Modal</button>
 
         <h3>Modal:</h3>
         <div>
 
-          <Modal :open="modalOpen" @close-request="modalOpen=false">Hello Modal World!</Modal>
+          <button type="button" @click="modalOpen1=!modalOpen1">Toggle Modal 1</button>
+
+          <Modal :open="modalOpen1" @close-request="modalOpen1=false">
+            Hello Modal World 1!
+            <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
+          </Modal>
+
+          <Modal :open="modalOpen2" @close-request="modalOpen2=false">
+            Hello Modal World 2!
+            <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+          </Modal>
+
+          <Modal :open="modalOpen3" @close-request="modalOpen3=false">Hello Modal World 3!</Modal>
 
         </div>
 

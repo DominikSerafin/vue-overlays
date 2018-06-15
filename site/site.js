@@ -16,7 +16,9 @@ var app = new Vue({
   data: function(){
     return {
       count: 1,
-      modalOpen: false,
+      modalOpen1: false,
+      modalOpen2: false,
+      modalOpen3: false,
     };
   },
 

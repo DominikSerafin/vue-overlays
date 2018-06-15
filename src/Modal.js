@@ -1,3 +1,5 @@
+import ownerDocument from './dom-helpers/ownerDocument';
+
 import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
 
@@ -38,6 +40,13 @@ export default {
       default: false,
     },
 
+    disableEscapeKeyDown: {
+      type: Boolean,
+      default: false,
+    },
+
+
+
   },
 
   data: function(){
@@ -54,26 +63,102 @@ export default {
 
   mounted: function(){
 
+    if (this.$props.open) {
+      this.handleOpen();
+    }
+
   },
 
   updated: function(){
 
+    if (this.$props.open) {
+      this.handleOpen();
+    } else {
+      this.handleClose();
+    }
   },
 
   beforeDestroy: function(){
-
+    this.handleClose();
   },
+
+
+
+
 
   methods: {
 
 
+
+    isTopModal: function(){
+      return true; // TODO
+    },
+
+
+
+    handleRendered: function(){
+      //this.autoFocus();
+      this.$emit('rendered');
+    },
+
+
+    handleOpen: function(event){
+      const doc = ownerDocument(this.$refs.modal);
+
+      //const container = getContainer(this.props.container, doc.body);
+      //this.props.manager.add(this, container);
+
+      doc.addEventListener('keydown', this.handleDocumentKeyDown);
+      doc.addEventListener('focus', this.enforceFocus, true);
+
+    },
+
+
+    handleClose: function(event){
+
+      //this.props.manager.remove(this);
+
+      const doc = ownerDocument(this.$refs.modal);
+      doc.removeEventListener('keydown', this.handleDocumentKeyDown);
+      doc.removeEventListener('focus', this.enforceFocus);
+
+      //this.restoreLastFocus();
+
+    },
+
+
+    handleDocumentKeyDown: function(event){
+
+      var charCode = (typeof event.which == 'number') ? event.which : event.keyCode;
+      var pressedEsc = charCode === 27;
+
+      if (!this.isTopModal() || !pressedEsc)  return;
+
+      this.$emit('escape-key-down', event);
+
+      if (!this.$props.disableEscapeKeyDown)
+        this.$emit('close-request', event, 'escape-key-down');
+
+
+    },
+
+
     handleBackdropClick: function(event){
+
       if (event.target !== event.currentTarget) return;
+
       this.$emit('backdrop-click', event);
-      if (!this.$props.disableBackdropClick) this.$emit('close-request', event, 'backdrop-click');
+
+      if (!this.$props.disableBackdropClick)
+        this.$emit('close-request', event, 'backdrop-click');
+
     },
 
   },
+
+
+
+
 
   render: function(h) {
 
@@ -103,7 +188,10 @@ export default {
 
     var portal = h('Portal', {
       style: style,
-      ref: 'portal'
+      ref: 'portal',
+      on: {
+        'rendered': this.handleRendered,
+      },
     }, [modal, backdrop]);
 
 
