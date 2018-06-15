@@ -6,6 +6,23 @@ import getScrollbarSize from './util/dom-helpers/util/scrollbarSize';
 import isOverflowing from './util/isOverflowing';
 import { ariaHidden, hideSiblings, showSiblings } from './util/manageAriaHidden';
 
+/*
+findIndex(array, key, value) {
+  var index = -1;
+  //var result = null;
+  for (var i = 0; i < array.length; i++) {
+    index++;
+    if (array[i][key] === value) {
+      //result = array[i];
+      break;
+    }
+  }
+  return index;
+}
+*/
+
+
+
 function findIndexOf(data, callback) {
   let idx = -1;
   data.some((item, index) => {
@@ -70,6 +87,7 @@ function removeContainerStyle(data, container) {
  * Used by the Modal to ensure proper styling of containers.
  */
 class ModalManager {
+
   constructor(options = {}) {
     const { hideSiblingNodes = true, handleContainerOverflow = true } = options;
 
@@ -86,8 +104,12 @@ class ModalManager {
     this.data = [];
   }
 
+
+
   add(modal, container) {
     let modalIdx = this.modals.indexOf(modal);
+    //let modalIdx = findIndex(this.modals, 'id', modal.id);
+
     if (modalIdx !== -1) {
       return modalIdx;
     }
@@ -96,7 +118,8 @@ class ModalManager {
     this.modals.push(modal);
 
     if (this.hideSiblingNodes) {
-      hideSiblings(container, modal.mountNode);
+      //hideSiblings(container, modal.mountNode);
+      hideSiblings(container, modal);
     }
 
     const containerIdx = this.containers.indexOf(container);
@@ -142,13 +165,15 @@ class ModalManager {
       }
 
       if (this.hideSiblingNodes) {
-        showSiblings(container, modal.mountNode);
+        //showSiblings(container, modal.mountNode);
+        showSiblings(container, modal);
       }
       this.containers.splice(containerIdx, 1);
       this.data.splice(containerIdx, 1);
     } else if (this.hideSiblingNodes) {
       // Otherwise make sure the next top modal is visible to a screan reader.
-      ariaHidden(false, data.modals[data.modals.length - 1].mountNode);
+      //ariaHidden(false, data.modals[data.modals.length - 1].mountNode);
+      ariaHidden(false, data.modals[data.modals.length - 1]);
     }
 
     return modalIdx;
@@ -157,6 +182,7 @@ class ModalManager {
   isTopModal(modal) {
     return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
   }
+
 }
 
 export default ModalManager;

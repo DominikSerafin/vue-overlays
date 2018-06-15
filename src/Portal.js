@@ -3,9 +3,6 @@ export default {
 
   props: {
     container: {
-      //default: function(){
-      //  return window.body;
-      //},
       validator: function(value){
         if (value instanceof HTMLElement) return true;
         if (typeof value === 'object') return true;
@@ -42,24 +39,24 @@ export default {
 
   beforeDestroy: function(){
     var root = this.$refs.root;
+
+    // with this I was  trying to remove the leftover empty comment elements appended to body
+    // that happen when you nest Portals in Portals
+    //this.$parent.$vnode.elm.remove();
+    //this.$parent.$vnode.elm.appendChild(root);
+    //this.$_containerElement.removeChild(root);
+
     root ? root.remove() : null;
+
   },
 
   methods: {
 
-    setContainerElement: function(){
-      if (this.$props.container) {
-        this._containerElement = this.$props.container;
-      } else {
-        this._containerElement = ownerDocument(this.$refs.root).body;
-      }
-      return this._containerElement;
-    },
 
     portalElement: function(){
-      this.setContainerElement();
+      this.$_containerElement = this.$props.container || ownerDocument(this.$refs.root).body;
 
-      var container = this._containerElement;
+      var container = this.$_containerElement;
       var root = this.$refs.root;
 
       if (!root) return;

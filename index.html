@@ -65,18 +65,31 @@
           <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
           <Modal :open="modalOpen1" @close-request="modalOpen1=false">
-            Hello Modal World 1!
-            <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
-          </Modal>
 
-          <Modal :open="modalOpen2" @close-request="modalOpen2=false">
             <div style="background:white;">
-              Hello Modal World 2!
-              <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+              Hello Modal World 1!
+              <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
+
+              <Modal :open="modalOpen2" @close-request="modalOpen2=false">
+                <div style="background:white;">
+                  Hello Modal World 2!
+                  <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+
+
+                  <Modal :open="modalOpen3" @close-request="modalOpen3=false">
+                    <div style="background:white;">
+                      Hello Modal World 3!
+                    </div>
+                  </Modal>
+
+                </div>
+              </Modal>
+
+
             </div>
           </Modal>
 
-          <Modal :open="modalOpen3" @close-request="modalOpen3=false">Hello Modal World 3!</Modal>
+
 
         </div>
 

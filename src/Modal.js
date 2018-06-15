@@ -26,10 +26,33 @@ const hiddenStyles = {
   visibility: 'hidden',
 }
 
+function generateID(prefix){
+  var uuid = function(){
+    //https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+        d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  };
+  return (prefix ? prefix + '-' : '') + uuid();
+};
+
 
 export default {
 
   props: {
+
+    container: {
+      validator: function(value){
+        if (value instanceof HTMLElement) return true;
+        if (typeof value === 'object') return true;
+      },
+    },
 
     open: {
       type: Boolean,
@@ -51,12 +74,6 @@ export default {
       default: false,
     },
 
-    manager: {
-      default: function(){
-        return new ModalManager();
-      },
-    },
-
 
   },
 
@@ -70,6 +87,15 @@ export default {
   },
 
   watch: {
+  },
+
+  beforeCreate: function(){
+    //this.$_id = generateID();
+  },
+
+
+  created: function(){
+    this.getOrCreateManager();
   },
 
   mounted: function(){
@@ -100,24 +126,34 @@ export default {
   methods: {
 
 
-
-    isTopModal: function(){
-      return true; // TODO
-    },
-
-
-
     handleRendered: function(){
+      this.$_mountNode = this.$refs.portal.$refs.root;
+
       //this.autoFocus();
       this.$emit('rendered');
+
+    },
+
+    getOrCreateManager: function(){
+      // i didn't know how to port the manager from React props to Vue version in "proper" way
+      // and I didn't wanted to spent too much time on it, so this version is a little hackish
+      // and done differently than in Material-UI React version...
+      // in this version - manager is global (for container) for all modals inside that container
+      // so it will manage all modals inside container, not only nested ones that have manage passes as prop
+      // (pull requests welcome)
+      const doc = ownerDocument(this.$_mountNode);
+      const container = this.$props.container || doc.body;
+      container.__vo_manager__ = container.__vo_manager__ ? container.__vo_manager__ : new ModalManager();
+      this.$_manager = container.__vo_manager__;
     },
 
 
     handleOpen: function(event){
-      const doc = ownerDocument(this.$refs.modal);
 
-      //const container = getContainer(this.props.container, doc.body);
-      //this.$props.manager.add(this, container);
+      const doc = ownerDocument(this.$_mountNode);
+      const container = this.$props.container || doc.body;
+
+      this.$_manager.add(this.$_mountNode, container);
 
       doc.addEventListener('keydown', this.handleDocumentKeyDown);
       doc.addEventListener('focus', this.enforceFocus, true);
@@ -127,9 +163,10 @@ export default {
 
     handleClose: function(event){
 
-      //this.props.manager.remove(this);
+      const doc = ownerDocument(this.$_mountNode);
 
-      const doc = ownerDocument(this.$refs.modal);
+      this.$_manager.remove(this.$_mountNode);
+
       doc.removeEventListener('keydown', this.handleDocumentKeyDown);
       doc.removeEventListener('focus', this.enforceFocus);
 
@@ -165,6 +202,15 @@ export default {
 
     },
 
+
+
+
+    isTopModal: function(){
+      return this.$_manager.isTopModal(this.$_mountNode);
+    },
+
+
+
   },
 
 
@@ -173,14 +219,13 @@ export default {
 
   render: function(h) {
 
-    if (!this.$props.open) return null;
+    if (!this.$props.open) return;
 
 
     var style = this.$props.hideBackdrop ?
       Object.assign(modalStyles, hiddenStyles) : modalStyles;
 
     var modal = h('div', {
-      ref: 'modal',
     }, this.$slots.default);
 
 
@@ -198,8 +243,8 @@ export default {
 
 
     var portal = h('Portal', {
-      style: style,
       ref: 'portal',
+      style: style,
       on: {
         'rendered': this.handleRendered,
       },
