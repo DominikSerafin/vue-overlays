@@ -33,6 +33,11 @@ export default {
       default: false,
     },
 
+    disableBackdropClick: {
+      type: Boolean,
+      default: false,
+    },
+
   },
 
   data: function(){
@@ -62,7 +67,12 @@ export default {
   methods: {
 
 
-    
+    handleBackdropClick: function(event){
+      if (event.target !== event.currentTarget) return;
+      this.$emit('backdrop-click', event);
+      if (!this.$props.disableBackdropClick) this.$emit('close-request', event, 'backdrop-click');
+    },
+
   },
 
   render: function(h) {
@@ -73,18 +83,29 @@ export default {
     var style = this.$props.hideBackdrop ?
       Object.assign(modalStyles, hiddenStyles) : modalStyles;
 
-    var modal = h('div', {style: style, ref: 'modal'}, this.$slots.default);
+    var modal = h('div', {
+      ref: 'modal',
+    }, this.$slots.default);
 
 
 
 
-    if (this.$props.hideBackdrop) {
-      var backdrop = null;
-    } else {
-      var backdrop = h('Backdrop', {attrs: {open: this.$props.open}, ref: 'backdrop'});
-    }
+    var backdrop = this.$props.hideBackdrop ? null : h('Backdrop', {
+      attrs: {open: this.$props.open},
+      nativeOn: {
+        'click': this.handleBackdropClick,
+      },
+      ref: 'backdrop',
+    });
 
-    var portal = h('Portal', {ref: 'portal'}, [modal, backdrop]);
+
+
+
+    var portal = h('Portal', {
+      style: style,
+      ref: 'portal'
+    }, [modal, backdrop]);
+
 
     return portal;
 

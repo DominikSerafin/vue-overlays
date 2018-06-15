@@ -45,7 +45,6 @@
 
 
 
-            <!--
       <section class="section">
         <h2>Modal Debug</h2>
 
@@ -60,13 +59,13 @@
         <h3>Modal:</h3>
         <div>
 
-          <Modal :open="modalOpen">Hello Modal World!</Modal>
+          <Modal :open="modalOpen" @close-request="modalOpen=false">Hello Modal World!</Modal>
 
         </div>
 
       </section>
-      -->
 
+                  <!--
       <section class="section">
 
         <h2>Portal Debug</h2>
@@ -93,6 +92,7 @@
         <div class="js-custom-target"></div>
 
       </section>
+      -->
 
 
 
