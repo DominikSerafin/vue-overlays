@@ -66,7 +66,7 @@ export default {
   render: function(h) {
 
     if (!this.$props.open) return null;
-
+          
     var style = this.$props.invisible ?
       Object.assign(rootStyles, invisibleStyles) : rootStyles;
 

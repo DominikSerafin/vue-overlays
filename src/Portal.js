@@ -1,15 +1,15 @@
-import domHelpers from './util/domHelpers.js';
+import ownerDocument from './dom-helpers/ownerDocument';
 export default {
 
   props: {
     target: {
-      type: [String, Object],
       //default: function(){
       //  return window.body;
       //},
-      //validator: function(value){
-      //  return typeof value === 'object';
-      //},
+      validator: function(value){
+        if (value instanceof HTMLElement) return true;
+        if (typeof value === 'object') return true;
+      },
     },
   },
 
@@ -46,15 +46,10 @@ export default {
   methods: {
 
     setTargetElement: function(){
-      if (typeof this.$props.target === 'string') {
-        var queriedElement = document.querySelector(this.$props.target);
-        if (!queriedElement) {
-          console.error('Can\'t find element with provided query selector to Portal target prop.')
-          return;
-        };
-        this._targetElement = queriedElement;
+      if (this.$props.target) {
+        this._targetElement = this.$props.target;
       } else {
-        this._targetElement = window.document.body;
+        this._targetElement = ownerDocument(this.$refs.root).body;
       }
       return this._targetElement;
     },

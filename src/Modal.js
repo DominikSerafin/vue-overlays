@@ -2,7 +2,7 @@ import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
 
 
-const rootStyles = {
+const modalStyles = {
   display: 'flex',
   width: '100%',
   height: '100%',
@@ -60,61 +60,33 @@ export default {
   },
 
   methods: {
+
+
+    
   },
 
   render: function(h) {
-    var props = this.$props;
-    var slots = this.$slots;
 
-    /*
-    <Portal
-      ref={node => {
-        this.mountNode = node ? node.getMountNode() : node;
-      }}
-      container={container}
-      onRendered={this.handleRendered}
-    >
-      <div
-        data-mui-test="Modal"
-        className={classNames(classes.root, className, {
-          [classes.hidden]: exited,
-        })}
-        {...other}
-      >
-        {hideBackdrop ? null : (
-          <BackdropComponent open={open} onClick={this.handleBackdropClick} {...BackdropProps} />
-        )}
-        <RootRef
-          rootRef={node => {
-            this.dialogElement = node;
-          }}
-        >
-          {React.cloneElement(children, childProps)}
-        </RootRef>
-      </div>
-    </Portal>
-    */
+    if (!this.$props.open) return null;
 
-    console.log(this.$slots);
 
-    if (!props.open) return null;
+    var style = this.$props.hideBackdrop ?
+      Object.assign(modalStyles, hiddenStyles) : modalStyles;
+
+    var modal = h('div', {style: style, ref: 'modal'}, this.$slots.default);
 
 
 
-    if (props.hideBackdrop) {
+
+    if (this.$props.hideBackdrop) {
       var backdrop = null;
     } else {
-      var backdrop = h('Backdrop', {attrs: {open: props.open}, ref: 'backdrop'});
+      var backdrop = h('Backdrop', {attrs: {open: this.$props.open}, ref: 'backdrop'});
     }
 
-
-    var modal = h('div', {attrs: {}, ref: 'modal'}, this.$slots.default);
-
-    var portal = h('Portal', {attrs: {}, ref: 'portal'}, [modal, backdrop]);
+    var portal = h('Portal', {ref: 'portal'}, [modal, backdrop]);
 
     return portal;
-
-
 
   },
 

@@ -16,7 +16,6 @@ var app = new Vue({
   data: function(){
     return {
       count: 1,
-      portalTarget: null,
       modalOpen: false,
     };
   },
@@ -26,6 +25,17 @@ var app = new Vue({
 
   methods: {
     onRendered: function(){
+    },
+
+    togglePortalTarget: function(){
+      if(this._portalTarget) {
+        this._portalTarget = void 0;
+      } else {
+        this._portalTarget = window.document.querySelector('.js-custom-target');
+      }
+
+      this.$forceUpdate();
+
     },
   },
 

@@ -45,6 +45,7 @@
 
 
 
+            <!--
       <section class="section">
         <h2>Modal Debug</h2>
 
@@ -64,21 +65,24 @@
         </div>
 
       </section>
+      -->
 
-      <!--
       <section class="section">
 
         <h2>Portal Debug</h2>
 
-        <p>$state.count: {{count}}</p>
-        <p>$state.portalTarget: <code v-if="portalTarget">"{{portalTarget}}"</code><code v-else>undefined</code></p>
+        <p>.count: {{count}}</p>
+        <p>._portalTarget: {{this._portalTarget ? this._portalTarget.nodeName : 'undefined' }}</p>
 
         <button type="button" @click="count++">Add Count</button>
-        <button type="button" @click="(portalTarget=portalTarget?null:'.js-custom-target')">Toggle Portal Target</button>
+        <button type="button"
+          @click="togglePortalTarget">
+          Toggle Portal Target
+        </button>
 
         <h3>Portal original position in DOM:</h3>
         <div>
-          <Portal @rendered="onRendered" :target="portalTarget || void 0">
+          <Portal @rendered="onRendered" :target="this._portalTarget">
             <div class="portal-content">
               This content should be rendered appended to body
             </div>
@@ -89,7 +93,6 @@
         <div class="js-custom-target"></div>
 
       </section>
-      -->
 
 
 
