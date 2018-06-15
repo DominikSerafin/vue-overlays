@@ -12,3 +12,13 @@ body {
   padding: 10px 30px;
   background: #eee;
 }
+
+.section {
+  background: #ddd;
+  padding: 20px;
+}
+
+.portal-content {
+  background: white;
+  display: inline-block;
+}

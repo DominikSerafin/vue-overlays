@@ -26,7 +26,6 @@ export default {
   },
 
   mounted: function(){
-    console.warn(domHelpers.scrollbarSize());
     /*
       https://vuejs.org/v2/api/#mounted
       Note that mounted does not guarantee that all child components have also been mounted.

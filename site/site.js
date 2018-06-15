@@ -1,5 +1,8 @@
 
 Vue.component('Portal', window.vo.Portal);
+Vue.component('Backdrop', window.vo.Backdrop);
+Vue.component('Modal', window.vo.Modal);
+
 
 var app = new Vue({
   el: '#app',
@@ -14,6 +17,7 @@ var app = new Vue({
     return {
       count: 1,
       portalTarget: null,
+      modalOpen: false,
     };
   },
 
@@ -22,7 +26,6 @@ var app = new Vue({
 
   methods: {
     onRendered: function(){
-      window.console.warn('onRendered');
     },
   },
 

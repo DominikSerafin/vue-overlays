@@ -39,26 +39,59 @@
       <header>
         <h1>Vue Overlays</h1>
         <p>Portal, Modal, Popover.</p>
-        <p>Debug count: {{count}}</p>
-        <p>Debug portalTarget: {{portalTarget}}</p>
 
 
       </header>
 
-      <section>
+
+
+      <section class="section">
+        <h2>Modal Debug</h2>
+
+
+        <p>$state.count: {{count}}</p>
+        <p>$state.modalOpen: {{modalOpen}}</p>
+
+        <button type="button" @click="count++">Add Count</button>
+
+        <button type="button" @click="modalOpen=!modalOpen">Open Modal</button>
+
+        <h3>Modal:</h3>
+        <div>
+
+          <Modal :open="modalOpen">Hello Modal World!</Modal>
+
+        </div>
+
+      </section>
+
+      <!--
+      <section class="section">
+
+        <h2>Portal Debug</h2>
+
+        <p>$state.count: {{count}}</p>
+        <p>$state.portalTarget: <code v-if="portalTarget">"{{portalTarget}}"</code><code v-else>undefined</code></p>
 
         <button type="button" @click="count++">Add Count</button>
         <button type="button" @click="(portalTarget=portalTarget?null:'.js-custom-target')">Toggle Portal Target</button>
 
         <h3>Portal original position in DOM:</h3>
         <div>
-          <Portal @rendered="onRendered" :target="portalTarget || void 0">This content should be rendered appended to body</Portal>
+          <Portal @rendered="onRendered" :target="portalTarget || void 0">
+            <div class="portal-content">
+              This content should be rendered appended to body
+            </div>
+          </Portal>
         </div>
 
         <h3>Portal custom DOM target:</h3>
         <div class="js-custom-target"></div>
 
       </section>
+      -->
+
+
 
     </div>
   </div>
