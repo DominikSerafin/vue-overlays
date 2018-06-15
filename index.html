@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic information -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Site information -->
+  <title>Vue Overlays</title>
+  <meta name="description" content="Vue Overlays">
+
+  <!-- Favicon -->
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./site/css/example.css">
+
+  <!-- Vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <!-- Vue Overlays -->
+  <script src="./dist/index.js"></script>
+
+  <!-- Normalize Styles -->
+  <link rel="stylesheet" href="./site/normalize.css" />
+
+  <!-- Site Styles -->
+  <link rel="stylesheet" href="./site/site.css" />
+
+
+</head>
+<body>
+
+  <!-- Vue App -->
+  <div id="app-wrapper">
+    <div id="app">
+
+      <header>
+        <h1>Vue Overlays</h1>
+        <p>Portal, Modal, Popover.</p>
+
+      </header>
+
+      <section>
+
+        <h3>Portal original position in DOM:</h3>
+        <div>
+          <Portal @rendered="onRendered">This content should be rendered appended to body</Portal>
+        </div>
+
+        <h3>Portal custom DOM target:</h3>
+        <div class="js-custom-target"></div>
+
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- Site Script -->
+  <script src="./site/site.js"></script>
+
+</body>
+</html>

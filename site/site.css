@@ -1,0 +1,14 @@
+body {
+  font-family: 'segoe ui', sans-serif;
+  background: #222;
+}
+
+#app-wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+#app {
+  padding: 10px 30px;
+  background: #eee;
+}

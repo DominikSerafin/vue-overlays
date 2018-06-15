@@ -1,0 +1,25 @@
+{
+  "name": "vue-overlays",
+  "version": "0.0.1",
+  "description": "Vue Overlays (Portal, Modal, Popover)",
+  "main": "index.js",
+  "scripts": {
+    "serve": "http-server -o",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "babel-loader": "^8.0.0-beta.3",
+    "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.2.0",
+    "http-server": "^0.11.1",
+    "vue": "^2.5.16",
+    "webpack": "^4.12.0",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-cli": "^3.0.7",
+    "webpack-dashboard": "^2.0.0"
+  }
+}
