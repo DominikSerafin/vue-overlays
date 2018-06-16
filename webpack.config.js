@@ -5,13 +5,8 @@ const path = require('path');
 const util = require('util');
 const webpack = require('webpack');
 //const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const CopyWebpackPlugin = require('copy-webpack-plugin');
-//const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-//const autoprefixer = require('autoprefixer');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const package = require('./package.json');
-
 
 
 /*------------------------------------*\
@@ -19,8 +14,6 @@ const package = require('./package.json');
 \*------------------------------------*/
 var NODE_ENV = process.env.NODE_ENV;
 var VERSION = package.version;
-
-
 
 
 /*------------------------------------*\
@@ -76,9 +69,7 @@ module.exports = {
 
   module: {
 
-
     rules: [
-
 
       {
         test: /\.js$/,
@@ -152,15 +143,14 @@ module.exports = {
 \*------------------------------------*/
 if (NODE_ENV==='production') {
 
-
   module.exports.devtool = 'source-map';
   module.exports.output.filename = '[name].js';
 
+  module.exports.optimization = {
+    minimize: true,
+  };
 
-  // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
-
-    //new UglifyJSPlugin(),
 
     // cleanups after build
     //new WebpackCleanupPlugin({
@@ -175,7 +165,4 @@ if (NODE_ENV==='production') {
 
   ]);
 
-
 }
-
-
