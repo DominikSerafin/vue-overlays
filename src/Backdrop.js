@@ -19,6 +19,8 @@ const invisibleStyles = {
 
 export default {
 
+  name: 'Backdrop',
+
   props: {
     invisible: {
       type: Boolean,

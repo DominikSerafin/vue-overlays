@@ -15,6 +15,7 @@ var app = new Vue({
 
   data: function(){
     return {
+      showPortal: false,
       count: 1,
       modalOpen1: false,
       modalOpen2: false,
@@ -22,7 +23,12 @@ var app = new Vue({
     };
   },
 
+  created: function(){
+  },
+
   mounted: function(){
+    //this._portalContainer = window.document.querySelector('.js-custom-container');
+    //this.$forceUpdate();
   },
 
   methods: {

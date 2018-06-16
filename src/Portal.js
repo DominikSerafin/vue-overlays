@@ -1,6 +1,8 @@
 import ownerDocument from './util/dom-helpers/ownerDocument';
 export default {
 
+  name: 'Portal',
+
   props: {
     container: {
       validator: function(value){
@@ -22,15 +24,17 @@ export default {
   watch: {
   },
 
+
   mounted: function(){
     /*
       https://vuejs.org/v2/api/#mounted
       Note that mounted does not guarantee that all child components have also been mounted.
       If you want to wait until the entire view has been rendered, you can use vm.$nextTick inside of mounted.
     */
+    this.$_main = this.$refs.main;
+    this.$_originalContainer = this.$refs.main.parentElement;
     this.portalElement();
     this.$emit('rendered');
-
   },
 
   updated: function(){
@@ -39,34 +43,47 @@ export default {
   },
 
   beforeDestroy: function(){
-    var root = this.$refs.root;
 
-    // this is sketchy...
-    // but it's there to ensure that there won't be any comment nodes left tover
+    // this is sketchy... and might brake something in some edge cases (like nesting Portals, etc)
+    // (this helps components that have Portal as root component - e.g. Modal)
+    // but it's there to ensure that there won't be any vue comment nodes left over
     // and any new portals will always be appended last to the container
     // (pull requests welcome for less sketchy solution...)
-    this.$parent.$vnode.elm.remove();
+    var parentVnode = (this.$parent && this.$parent.$vnode) ? this.$parent.$vnode : null;
+    parentVnode && parentVnode.elm && (parentVnode.elm.nodeName==='#comment') ? parentVnode.elm.remove() : null;
 
-    root ? root.remove() : null;
+    // remove ref comment
+    //this.$_refComment.parentNode.insertBefore(parentVnodeElm, this.$_refComment);
+    //this.$_refComment.remove();
+
+    this.$_main && this.$_main.remove();
 
   },
+
 
   methods: {
 
 
     portalElement: function(){
-      this.$_containerElement = this.$props.container || ownerDocument(this.$refs.root).body;
+      if (!this.$_main) return;
 
-      var container = this.$_containerElement;
-      var root = this.$refs.root;
+      var doc = ownerDocument(this.$_main);
 
-      if (!root) return;
-      if (!container) return;
+      this.$_containerElement = this.$props.container || doc.body;
+
+      if (!this.$_containerElement) return;
+
+
+      // place reference comment node to keep original portal position
+      //this.$_refComment = doc.createComment('vo-reference');
+      //this.$_main.parentNode.insertBefore(this.$_refComment, this.$_main);
+
 
       // checks whether container was already appended...
-      if (root.parentElement==container) return;
+      if (this.$_main.parentElement==this.$_containerElement) return;
 
-      container.appendChild(root);
+      this.$_containerElement.appendChild(this.$_main);
+
     },
 
   },
@@ -76,7 +93,9 @@ export default {
       //this.portalElement();
       //this.$emit('rendered');
     //});
-    return h('div', {ref: 'root'}, this.$slots.default);
+    //var key = +(new Date());
+    //console.warn(key);
+    return h('div', {ref: 'main'}, this.$slots.default);
   },
 
 };

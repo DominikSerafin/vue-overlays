@@ -25,6 +25,8 @@ const rootStyles = {
 
 export default {
 
+  name: 'Modal',
+
   props: {
 
     container: {
@@ -131,7 +133,9 @@ export default {
 
 
     handleRendered: function(){
-      this.$_mountNode = this.$refs.portal.$refs.root;
+
+      // hackish solution to get portal main DOM ref
+      this.$_mountNode = this.$refs.portal.$refs.main;
 
       this.autoFocus();
       this.$emit('rendered');
@@ -340,6 +344,11 @@ export default {
         'rendered': this.handleRendered,
       },
     }, [backdrop, this.$slots.default]);
+
+
+    //var wrapper = h('div', {
+    //  ref: 'wrapper',
+    //}, portal);
 
 
     return portal;

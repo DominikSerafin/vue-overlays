@@ -1,5 +1,7 @@
 export default {
 
+  name: 'Popover',
+
   props: {
 
   },

@@ -44,23 +44,30 @@
       </header>
 
 
+
+      <!--
       <section class="section">
         <h2>Portal Debug</h2>
 
         <button type="button" @click="count++">count + 1</button>
 
         <p>$state.count: {{count}}</p>
+        <p>$state.showPortal: {{showPortal}}</p>
         <p>._portalContainer: {{this._portalContainer ? this._portalContainer.nodeName : 'undefined' }}</p>
+
+        <button type="button" @click="showPortal=!showPortal">
+          Toggle Portal
+        </button>
 
         <button type="button" @click="togglePortalContainer">
           Toggle Portal Container
         </button>
 
         <h3>Portal original position in DOM:</h3>
-        <div>
-          <Portal @rendered="onRendered" :container="this._portalContainer">
+        <div >
+          <Portal v-if="showPortal" @rendered="onRendered" :container="this._portalContainer">
             <div class="portal-content">
-            This content should be rendered appended to body
+              Portal Content <code>$state.count: {{count}}</code>
             </div>
           </Portal>
         </div>
@@ -68,8 +75,7 @@
         <h3>Portal custom DOM container:</h3>
         <div class="js-custom-container"></div>
 
-      </section>
-
+      </section>-->
 
 
 
@@ -95,19 +101,19 @@
           <Modal :open="modalOpen1" @close-request="modalOpen1=false">
             <div :style="getModalStyle(1)">
 
-              Hello Modal World 1!
+              Hello Modal World 1! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
               <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
 
               <Modal :open="modalOpen2" @close-request="modalOpen2=false" >
                 <div :style="getModalStyle(2)">
 
-                  Hello Modal World 2!
+                  Hello Modal World 2! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
                   <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
                   <Modal :open="modalOpen3" @close-request="modalOpen3=false">
                     <div :style="getModalStyle(3)">
 
-                      Hello Modal World 3!
+                      Hello Modal World 3! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
 
                     </div>
                   </Modal>
