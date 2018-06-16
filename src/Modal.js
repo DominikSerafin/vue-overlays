@@ -8,8 +8,6 @@ import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
 import ModalManager from './ModalManager.js';
 
-
-
 const rootStyles = {
   display: 'flex',
   width: '100%',
@@ -20,8 +18,6 @@ const rootStyles = {
   top: 0,
   left: 0,
 }
-
-
 
 export default {
 
@@ -71,31 +67,15 @@ export default {
       default: false,
     },
 
-
-  },
-
-  data: function(){
-    return {
-
-    }
-  },
-
-  computed: {
   },
 
   watch: {
 
     '$props.open': function(newVal, oldVal){
-      if (!oldVal && newVal) {
-        this.checkForFocus();
-      }
+      if (!oldVal && newVal) this.checkForFocus();
     },
 
   },
-
-  beforeCreate: function(){
-  },
-
 
   created: function(){
     this.getOrCreateManager();
@@ -110,27 +90,15 @@ export default {
   },
 
   updated: function(){
-
-
-
-
-    if (this.$props.open) {
-      this.handleOpen();
-    } else {
-      this.handleClose();
-    }
+    if (this.$props.open) this.handleOpen();
+    else this.handleClose();
   },
 
   beforeDestroy: function(){
     this.handleClose();
   },
 
-
-
-
-
   methods: {
-
 
     handleRendered: function(){
 
@@ -141,9 +109,6 @@ export default {
       this.$emit('rendered');
 
     },
-
-
-
 
     getOrCreateManager: function(){
       // i didn't know how to port the manager from React props to Vue version in "proper" way
@@ -214,18 +179,11 @@ export default {
     },
 
 
-
-
-
-
-
     checkForFocus: function(){
       if (inDOM) {
         this.$_lastFocus = activeElement();
       }
     },
-
-
 
     autoFocus: function(){
       if (this.$props.disableAutoFocus) return;
@@ -254,8 +212,6 @@ export default {
 
     },
 
-
-
     restoreLastFocus: function(){
       if (this.$props.disableRestoreFocus) return;
 
@@ -275,9 +231,6 @@ export default {
       });
 
     },
-
-
-
 
     enforceFocus: function(){
       if (this.$props.disableEnforceFocus) return;
@@ -300,31 +253,17 @@ export default {
     },
 
 
-
-
-
-
-
-
     isTopModal: function(){
       return this.$_manager.isTopModal(this.$_mountNode);
     },
 
-
-
   },
-
-
 
 
 
   render: function(h) {
 
     if (!this.$props.open) return;
-
-
-
-
 
     var backdrop = this.$props.hideBackdrop ? null : h('Backdrop', {
       ref: 'backdrop',
@@ -334,9 +273,6 @@ export default {
       },
     });
 
-
-
-
     var portal = h('Portal', {
       ref: 'portal',
       style: rootStyles,
@@ -344,12 +280,6 @@ export default {
         'rendered': this.handleRendered,
       },
     }, [backdrop, this.$slots.default]);
-
-
-    //var wrapper = h('div', {
-    //  ref: 'wrapper',
-    //}, portal);
-
 
     return portal;
 

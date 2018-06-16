@@ -10,12 +10,9 @@ const rootStyles = {
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
 };
 
-
 const invisibleStyles = {
   backgroundColor: 'transparent',
 }
-
-
 
 export default {
 
@@ -36,33 +33,6 @@ export default {
     invisibleClass: {
       type: String,
     },
-  },
-
-  data: function(){
-    return {
-
-    }
-  },
-
-  computed: {
-  },
-
-  watch: {
-  },
-
-  mounted: function(){
-
-  },
-
-  updated: function(){
-
-  },
-
-  beforeDestroy: function(){
-
-  },
-
-  methods: {
   },
 
   render: function(h) {

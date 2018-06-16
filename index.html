@@ -88,6 +88,7 @@
         <p>$state.modalOpen1: {{modalOpen1}}</p>
         <p>$state.modalOpen2: {{modalOpen2}}</p>
         <p>$state.modalOpen3: {{modalOpen3}}</p>
+        <p>$state.modalOpen4: {{modalOpen4}}</p>
 
 
 
@@ -97,23 +98,28 @@
           <button type="button" @click="modalOpen1=!modalOpen1">Toggle Modal 1</button>
           <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
           <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
+          <button type="button" @click="modalOpen4=!modalOpen4">Toggle Modal 4</button>
 
           <Modal :open="modalOpen1" @close-request="modalOpen1=false">
             <div :style="getModalStyle(1)">
 
-              Hello Modal World 1! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
+              <h4>MODAL 1!</h4>
+              <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
               <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
 
               <Modal :open="modalOpen2" @close-request="modalOpen2=false" >
                 <div :style="getModalStyle(2)">
 
-                  Hello Modal World 2! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
+                  <h4>MODAL 2!</h4>
+                  <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
                   <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
                   <Modal :open="modalOpen3" @close-request="modalOpen3=false">
                     <div :style="getModalStyle(3)">
 
-                      Hello Modal World 3! <code>$state.count: {{count}}</code> <button type="button" @click="count++">count + 1</button>
+                      <h4>MODAL 3!</h4>
+                      <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
+                      <button type="button" @click="modalOpen4=!modalOpen4">Toggle Modal 4</button>
 
                     </div>
                   </Modal>
@@ -125,6 +131,15 @@
           </Modal>
 
 
+          <Modal :open="modalOpen4" @close-request="modalOpen4=false">
+            <div :style="getModalStyle(4)">
+
+              <h4>MODAL 4!</h4>
+              <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
+              <button type="button" @click="modalOpen1=!modalOpen1">Toggle Modal 1</button>
+
+            </div>
+          </Modal>
 
         </div>
 

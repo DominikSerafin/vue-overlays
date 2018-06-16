@@ -20,6 +20,7 @@ var app = new Vue({
       modalOpen1: false,
       modalOpen2: false,
       modalOpen3: false,
+      modalOpen4: false,
     };
   },
 
@@ -52,8 +53,8 @@ var app = new Vue({
     },
 
     getModalStyle: function (no) {
-      if( this['_modalStyleCached'+no] ) {
-        return this['_modalStyleCached'+no];
+      if( this['$_modalStyleCached'+no] ) {
+        return this['$_modalStyleCached'+no];
       }
 
       const top = 50 + this.rand();
@@ -73,7 +74,7 @@ var app = new Vue({
       };
 
 
-      this['_modalStyleCached'+no] = style;
+      this['$_modalStyleCached'+no] = style;
 
       return style;
 
