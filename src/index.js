@@ -3,6 +3,7 @@
 
   * Good transitions support
   * Fix hackish Portal beforeDestroy cleanup
+  * Refactor/improve sitauation around zIndex/'mui-fixed'/scrollbars/hidden overflow
   * Make ModalManager scoped the same way as in MUI version
   * Good SRR support
   * Good way to customize styling/classes of VO components
