@@ -8,16 +8,19 @@ import Portal from './Portal.js';
 import Backdrop from './Backdrop.js';
 import ModalManager from './ModalManager.js';
 
-const rootStyles = {
-  display: 'flex',
-  width: '100%',
-  height: '100%',
-  position: 'fixed',
-  //zIndex: theme.zIndex.modal,
-  zIndex: 1300,
-  top: 0,
-  left: 0,
-}
+const rootStyles = function(){
+  return {
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    //zIndex: theme.zIndex.modal,
+    zIndex: 1300,
+    top: 0,
+    left: 0,
+  }
+};
+
 
 export default {
 
@@ -32,7 +35,7 @@ export default {
       },
     },
 
-    open: {
+    backdropInvisible: {
       type: Boolean,
       default: false,
     },
@@ -71,9 +74,6 @@ export default {
 
   watch: {
 
-    '$props.open': function(newVal, oldVal){
-      if (!oldVal && newVal) this.checkForFocus();
-    },
 
   },
 
@@ -82,16 +82,11 @@ export default {
   },
 
   mounted: function(){
-
-    if (this.$props.open) {
-      this.handleOpen();
-    }
-
+    this.handleOpen();
   },
 
   updated: function(){
-    if (this.$props.open) this.handleOpen();
-    else this.handleClose();
+    this.checkForFocus();
   },
 
   beforeDestroy: function(){
@@ -263,11 +258,11 @@ export default {
 
   render: function(h) {
 
-    if (!this.$props.open) return;
-
     var backdrop = this.$props.hideBackdrop ? null : h('Backdrop', {
       ref: 'backdrop',
-      attrs: {open: this.$props.open},
+      attrs: {
+        invisible: this.$props.backdropInvisible,
+      },
       nativeOn: {
         'click': this.handleBackdropClick,
       },
@@ -275,11 +270,13 @@ export default {
 
     var portal = h('Portal', {
       ref: 'portal',
-      style: rootStyles,
+      style: rootStyles(),
       on: {
         'rendered': this.handleRendered,
       },
     }, [backdrop, this.$slots.default]);
+
+
 
     return portal;
 

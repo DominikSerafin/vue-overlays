@@ -1,7 +1,16 @@
 /*
   TODO:
 
-  * Passing DOM attributes like aria-* to modals
+  * Use "v-if" instead ":open" whenever possible
+  * Good way to customize styling/classes of VO components
+  * Passing DOM attributes like aria-* to VO components
+  * Sinking props into lower level components (e.g. Popover props => Modal props)
+  * Modal: keepMounted
+  * Modal: BackdropComponent
+  * Modal: children props role
+  * Modal: tabIndex prop make it work similar as in React version render
+  * Backdrop: custom backdrop rendering (slot?)
+  * Console.warns only in DEVELOPMENT mode? (Maybe use `warning` package like in original)
 
 */
 

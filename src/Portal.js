@@ -51,7 +51,8 @@ export default {
   },
 
   render: function(h) {
-    return h('div', {ref: 'main'}, this.$slots.default);
+    var main = h('div', {ref: 'main'}, [this.$slots.default]);
+    return main;
   },
 
 };

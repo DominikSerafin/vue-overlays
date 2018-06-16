@@ -2,6 +2,7 @@
 Vue.component('Portal', window.vo.Portal);
 Vue.component('Backdrop', window.vo.Backdrop);
 Vue.component('Modal', window.vo.Modal);
+Vue.component('Popover', window.vo.Popover);
 
 
 var app = new Vue({
@@ -15,12 +16,13 @@ var app = new Vue({
 
   data: function(){
     return {
-      showPortal: false,
       count: 1,
+      showPortal: false,
       modalOpen1: false,
       modalOpen2: false,
       modalOpen3: false,
       modalOpen4: false,
+      showPopover: false,
     };
   },
 

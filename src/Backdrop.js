@@ -1,18 +1,24 @@
-const rootStyles = {
-  zIndex: -1,
-  width: '100%',
-  height: '100%',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  // Remove grey highlight
-  WebkitTapHighlightColor: 'transparent',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+const rootStyles = function(){
+  return {
+    zIndex: -1,
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    // Remove grey highlight
+    WebkitTapHighlightColor: 'transparent',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  }
 };
 
-const invisibleStyles = {
-  backgroundColor: 'transparent',
-}
+const invisibleStyles = function(){
+  return {
+    backgroundColor: 'transparent',
+  }
+};
+
+
 
 export default {
 
@@ -22,10 +28,6 @@ export default {
     invisible: {
       type: Boolean,
       default: false,
-    },
-    open: {
-      type: Boolean,
-      required: true,
     },
     rootClass: {
       type: String,
@@ -37,16 +39,14 @@ export default {
 
   render: function(h) {
 
-    if (!this.$props.open) return null;
+    var style = rootStyles();
+    if (this.$props.invisible) Object.assign(style, invisibleStyles());
 
-    var style = this.$props.invisible ?
-      Object.assign(rootStyles, invisibleStyles) : rootStyles;
-
-    var className = this.$props.invisible ?
-      this.$props.rootClass + ' ' + this.$props.invisibleClass : this.$props.rootClass;
+    //var className = this.$props.invisible ?
+    //  this.$props.rootClass + ' ' + this.$props.invisibleClass : this.$props.rootClass;
 
     return h('div', {
-      class: className,
+      //class: className,
       style: style,
       ref: 'root',
       attrs: {
