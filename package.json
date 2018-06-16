@@ -1,8 +1,24 @@
 {
   "name": "vue-overlays",
   "version": "0.0.1",
-  "description": "Vue Overlays (Portal, Modal, Popover)",
-  "main": "index.js",
+  "private": false,
+  "description": "Vue Overlays (Portal, Modal, Popover) based on React-Overlays and React Material-UI 1.X",
+  "author": "Dominik Serafin <dominikdsgnr@gmail.com>",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DominikSerafin/vue-overlays.git"
+  },
+  "homepage": "https://github.com/DominikSerafin/vue-overlays",
+  "keywords": [
+    "vue",
+    "vue2",
+    "overlay",
+    "overlays",
+    "portal",
+    "modal",
+    "popover"
+  ],
   "scripts": {
     "serve": "http-server -o",
     "build": "cross-env NODE_ENV=production webpack",
