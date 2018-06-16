@@ -66,8 +66,15 @@
           Show Popover
         </button>
 
-        <Popover v-if="showPopover" @close-request="showPopover=false" :anchor-el="$refs.popoverAnchor">
-          <div style="background:white;width:400px;">
+        <Popover
+          :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
+          v-if="showPopover"
+          @close-request="showPopover=false"
+          :anchor-el="$refs.popoverAnchor"
+          :transform-origin="{vertical: 'center', horizontal: 'center'}"
+          :anchor-origin="{vertical: 'center', horizontal: 'center'}"
+        >
+          <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
             Hello World, I'm a Popover. <br>
             <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
             <button type="button" @click="showPopover=false">

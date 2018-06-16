@@ -2,6 +2,7 @@ import activeElement from './util/dom-helpers/activeElement';
 import contains from './util/dom-helpers/query/contains';
 import inDOM from './util/dom-helpers/util/inDOM';
 import ownerDocument from './util/dom-helpers/ownerDocument';
+import warning from './util/warning';
 //import { createChainedFunction } from './util/helpers';
 
 import Portal from './Portal.js';
@@ -193,10 +194,13 @@ export default {
         if (modalEl && !contains(modalEl, currentActiveElement)) {
           this.$_lastFocus = currentActiveElement;
           if (!modalEl.hasAttribute('tabIndex')) {
-            console.warn(
-              'Vue-Overlays: the modal content node does not accept focus. ' +
-              'For the benefit of assistive technologies, ' +
-              'the tabIndex of the node is being set to "-1".'
+            warning(
+              false,
+              [
+                'Vue-Overlays: the modal content node does not accept focus.',
+                'For the benefit of assistive technologies, ' +
+                  'the tabIndex of the node is being set to "-1".',
+              ].join('\n'),
             );
             modalEl.setAttribute('tabIndex', -1);
           }

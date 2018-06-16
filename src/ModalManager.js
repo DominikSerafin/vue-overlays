@@ -5,6 +5,7 @@ import ownerDocument from './util/dom-helpers/ownerDocument';
 import getScrollbarSize from './util/dom-helpers/util/scrollbarSize';
 import isOverflowing from './util/isOverflowing';
 import { ariaHidden, hideSiblings, showSiblings } from './util/manageAriaHidden';
+import warning from './util/warning';
 
 function findIndexOf(data, callback) {
   let idx = -1;

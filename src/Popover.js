@@ -4,6 +4,7 @@ import ownerDocument from './util/dom-helpers/ownerDocument';
 import debounce from './util/debounce';
 //import EventListener from 'react-event-listener';
 import ownerWindow from './util/ownerWindow';
+import warning from './util/warning';
 
 import Modal from './Modal.js';
 
@@ -92,6 +93,10 @@ export default {
   name: 'Popover',
 
   props: {
+
+    popoverStyle: {
+
+    },
 
     transformOrigin: {
       default: function(){
@@ -236,10 +241,10 @@ export default {
         transformOrigin.vertical += diff;
       }
 
-      console.warn(
+      warning(
         elemRect.height < heightThreshold || !elemRect.height || !heightThreshold,
         [
-          'Material-UI: the popover component is too tall.',
+          'Vue-Overlays: the popover component is too tall.',
           `Some part of it can not be seen on the screen (${elemRect.height - heightThreshold}px).`,
           'Please consider adding a `max-height` to improve the user-experience.',
         ].join('\n'),
@@ -286,9 +291,9 @@ export default {
 
 
       if (anchorReference === 'anchorPosition') {
-        console.warn(
+        warning(
           anchorPosition,
-          'Material-UI: you need to provide a `anchorPosition` property when using ' +
+          'Vue-Overlays: you need to provide a `anchorPosition` property when using ' +
             '<Popover anchorReference="anchorPosition" />.',
         );
         return anchorPosition;
@@ -332,10 +337,10 @@ export default {
         }
 
         // != the default value
-        console.warn(
+        warning(
           anchorOrigin.vertical === 'top',
           [
-            'Material-UI: you can not change the default `anchorOrigin.vertical` value ',
+            'Vue-Overlays: you can not change the default `anchorOrigin.vertical` value ',
             'when also providing the `getContentAnchorEl` property to the popover component.',
             'Only use one of the two properties.',
             'Set `getContentAnchorEl` to null or left `anchorOrigin.vertical` unchanged.',
@@ -377,10 +382,23 @@ export default {
 
 
     handleResize: debounce(function(){
-      console.warn('handleResize');
       this.setPositioningStyles(this.$refs.popover);
     }, 166), // Corresponds to 10 frames at 60 Hz.
 
+
+
+    makePopoverStyle: function(){
+      var defaults = popoverStyles();
+      var final = defaults;
+
+      if (this.$props.popoverStyle) {
+        // order is important: default styles always overwrite custom ones
+        final = Object.assign(this.$props.popoverStyle, defaults);
+      }
+
+      return final;
+
+    },
 
   },
 
@@ -388,9 +406,11 @@ export default {
 
   render: function(h) {
 
+    var popoverStyle = this.makePopoverStyle();
+
     var popover = h('div', {
       ref: 'popover',
-      style: popoverStyles(),
+      style: popoverStyle,
     }, [this.$slots.default]);
 
 
