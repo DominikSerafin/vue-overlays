@@ -42,7 +42,9 @@
 
         <p>$data.daySeconds: {{daySeconds}}</p>
         <p>$data.count: {{count}}</p>
-        <p>$data.showPopover: {{showPopover}}</p>
+        <p>$data.showPopover1: {{showPopover1}}</p>
+        <p>$data.showPopover2: {{showPopover2}}</p>
+        <p>$data.showPopover3: {{showPopover3}}</p>
         <p>$data.modalOpen1: {{modalOpen1}}</p>
         <p>$data.modalOpen2: {{modalOpen2}}</p>
         <p>$data.modalOpen3: {{modalOpen3}}</p>
@@ -62,27 +64,106 @@
       <section class="section">
         <h2>Popover Debug</h2>
 
-        <button type="button" @click="showPopover=true" ref="popoverAnchor">
-          Show Popover
+        <button type="button" @click="showPopover1=true" ref="popoverAnchor1">
+          Show Popover 1 (anchorEl)
         </button>
+
+        <button type="button" @click="showPopover1b=true" ref="popoverAnchor1b">
+          Show Popover 1b (anchorEl b)
+        </button>
+
+        <button type="button" @click="showPopover2=true" ref="popoverAnchor2">
+          Show Popover 2 (anchorPosition)
+        </button>
+
+        <button type="button" @click="popover3BtnClick" ref="popoverAnchor3">
+          Show Popover 3 (pointerPosition)
+        </button>
+
+
+
 
         <Popover
           :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
-          v-if="showPopover"
-          @close-request="showPopover=false"
-          :anchor-el="$refs.popoverAnchor"
+          v-if="showPopover1"
+          @close-request="showPopover1=false"
+          :anchor-el="$refs.popoverAnchor1"
           :transform-origin="{vertical: 'center', horizontal: 'center'}"
           :anchor-origin="{vertical: 'center', horizontal: 'center'}"
         >
           <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
-            Hello World, I'm a Popover. <br>
+            Hello World, I'm a Popover 1. <br>
             <p>$data.daySeconds: {{daySeconds}}</p>
             <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
-            <button type="button" @click="showPopover=false">
-              Hide Popover
+            <button type="button" @click="showPopover1=false">
+              Hide Popover 1
             </button>
           </div>
         </Popover>
+
+
+
+        <Popover
+          :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
+          v-if="showPopover1b"
+          @close-request="showPopover1b=false"
+          :anchor-el="$refs.popoverAnchor1b"
+          :transform-origin="{vertical: 'bottom', horizontal: 'left'}"
+          :anchor-origin="{vertical: 'top', horizontal: 'left'}"
+        >
+          <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
+            Hello World, I'm a Popover 1b. <br>
+            <p>$data.daySeconds: {{daySeconds}}</p>
+            <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
+            <button type="button" @click="showPopover1b=false">
+              Hide Popover 1
+            </button>
+          </div>
+        </Popover>
+
+
+        <Popover
+          :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
+          v-if="showPopover2"
+          @close-request="showPopover2=false"
+          :anchor-reference="'anchor-position'"
+          :anchor-position="{top: 200, left: 100}"
+          :anchor-el="$refs.popoverAnchor2"
+          :transform-origin="{vertical: 'center', horizontal: 'center'}"
+          :anchor-origin="{vertical: 'center', horizontal: 'center'}"
+        >
+          <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
+            Hello World, I'm a Popover 2. <br>
+            <p>$data.daySeconds: {{daySeconds}}</p>
+            <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
+            <button type="button" @click="showPopover2=false">
+              Hide Popover 2
+            </button>
+          </div>
+        </Popover>
+
+
+
+        <Popover
+          :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
+          v-if="showPopover3"
+          @close-request="showPopover3=false"
+          :anchor-reference="'anchor-event'"
+          :anchor-event="popover3Event"
+          :transform-origin="{vertical: 'center', horizontal: 'center'}"
+          :anchor-origin="{vertical: 'center', horizontal: 'center'}"
+        >
+          <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
+            Hello World, I'm a Popover 3. <br>
+            <p>$data.daySeconds: {{daySeconds}}</p>
+            <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
+            <button type="button" @click="showPopover3=false">
+              Hide Popover 3
+            </button>
+          </div>
+        </Popover>
+
+
 
       </section>
 

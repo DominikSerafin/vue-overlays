@@ -23,7 +23,11 @@ var app = new Vue({
       modalOpen2: false,
       modalOpen3: false,
       modalOpen4: false,
-      showPopover: false,
+      showPopover1: false,
+      showPopover1b: false,
+      showPopover2: false,
+      showPopover3: false,
+      popover3Event: null,
     };
   },
 
@@ -39,6 +43,15 @@ var app = new Vue({
   },
 
   methods: {
+
+
+    popover3BtnClick: function(event){
+      this.popover3Event = event;
+      this.showPopover3 = true;
+    },
+
+
+
 
     setDaySeconds: function(){
       var dt = new Date();

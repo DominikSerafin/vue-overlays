@@ -76,10 +76,10 @@ const popoverStyles = function(){ // paper:
     overflowX: 'hidden',
     // So we see the popover when it's empty.
     // It's most likely on issue on userland.
-    minWidth: 16,
-    minHeight: 16,
-    maxWidth: 'calc(100% - 32px)',
-    maxHeight: 'calc(100% - 32px)',
+    minWidth: 10,
+    minHeight: 10,
+    maxWidth: 'calc(100% - 20px)',
+    maxHeight: 'calc(100% - 20px)',
     // We disable the focus ring for mouse, touch and keyboard users.
     outline: 'none',
   }
@@ -107,6 +107,10 @@ export default {
       },
     },
 
+    anchorEvent: {
+
+    },
+
     anchorEl: {
 
     },
@@ -125,11 +129,15 @@ export default {
     },
 
     anchorReference: {
-      default: 'anchorEl',
+      default: 'anchor-el',
+    },
+
+    anchorPosition: {
+
     },
 
     marginThreshold: {
-      default: 16,
+      default: 10,
     },
 
 
@@ -191,6 +199,7 @@ export default {
 
     getPositioningStyle: function(element){
 
+      const anchorEvent = this.$props.anchorEvent;
       const anchorEl = this.$props.anchorEl;
       const anchorReference = this.$props.anchorReference;
       const marginThreshold = this.$props.marginThreshold;
@@ -203,9 +212,13 @@ export default {
         height: element.clientHeight,
       };
 
+
       // Get the transform origin point on the element itself
       const transformOrigin = this.getTransformOrigin(elemRect, contentAnchorOffset);
 
+
+
+      // return right away nothing if none is set as reference (will make popover stick to top left)
       if (anchorReference === 'none') {
         return {
           top: null,
@@ -214,21 +227,58 @@ export default {
         };
       }
 
-      // Get the offset of of the anchoring element
-      const anchorOffset = this.getAnchorOffset(contentAnchorOffset);
 
-      // Calculate element positioning
-      let top = anchorOffset.top - transformOrigin.vertical;
-      let left = anchorOffset.left - transformOrigin.horizontal;
-      const bottom = top + elemRect.height;
-      const right = left + elemRect.width;
 
-      // Use the parent window of the anchorEl if provided
-      const containerWindow = ownerWindow(getAnchorEl(anchorEl));
+      // Use the parent window
+      const containerWindow = ownerWindow(getAnchorEl(anchorEl) ? getAnchorEl(anchorEl) : this.$refs.popover);
 
       // Window thresholds taking required margin into account
       const heightThreshold = containerWindow.innerHeight - marginThreshold;
       const widthThreshold = containerWindow.innerWidth - marginThreshold;
+
+
+
+
+
+      let top;
+      let left;
+      let bottom;
+      let right;
+
+
+      //
+
+      if(anchorReference === 'anchor-el' || anchorReference === 'anchor-position') {
+
+        // Get the offset of of the anchoring element
+        const anchorOffset = this.getAnchorOffset(contentAnchorOffset);
+
+        // Calculate element positioning
+        top = anchorOffset.top - transformOrigin.vertical;
+        left = anchorOffset.left - transformOrigin.horizontal;
+
+        bottom = top + elemRect.height;
+        right = left + elemRect.width;
+
+
+      }
+
+
+
+      //
+      if (anchorReference === 'anchor-event') {
+
+        top = anchorEvent.clientY;
+        left = anchorEvent.clientX;
+
+        bottom = top + elemRect.height;
+        right = left + elemRect.width;
+
+      }
+
+      console.warn(bottom);
+
+
 
       // Check if the vertical axis needs shifting
       if (top < marginThreshold) {
@@ -266,6 +316,15 @@ export default {
         left: `${left}px`,
         transformOrigin: getTransformOriginValue(transformOrigin),
       };
+
+
+
+
+
+
+
+
+
     },
 
 
@@ -284,26 +343,39 @@ export default {
 
 
       const anchorEl = this.$props.anchorEl;
+      const anchorEvent = this.$props.anchorEvent;
       const anchorOrigin = this.$props.anchorOrigin;
       const anchorReference = this.$props.anchorReference;
       const anchorPosition = this.$props.anchorPosition;
 
 
-
-      if (anchorReference === 'anchorPosition') {
+      if (anchorReference === 'anchor-position') {
         warning(
           anchorPosition,
-          'Vue-Overlays: you need to provide a `anchorPosition` property when using ' +
-            '<Popover anchorReference="anchorPosition" />.',
+          'Vue-Overlays: you need to provide a `anchor-position` property when using ' +
+            '<Popover anchor-reference="anchor-position" />.',
         );
         return anchorPosition;
       }
 
-      // If an anchor element wasn't provided, just use the parent body element of this Popover
 
-      const anchorElement =
-        getAnchorEl(anchorEl) || ownerDocument(ReactDOM.findDOMNode(this.transitionEl)).body;
 
+
+      // if reference is event (mouse click or touch)
+      if (anchorReference === 'anchor-event') {
+        const anchorVertical = contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
+        return {
+          top: anchorRect.top + this.handleGetOffsetTop(anchorRect, anchorVertical),
+          left: anchorRect.left + this.handleGetOffsetLeft(anchorRect, anchorOrigin.horizontal),
+        };
+      }
+
+
+
+      // if reference is element...
+      // if an anchor element wasn't provided, just use the parent body element of this Popover
+
+      const anchorElement = getAnchorEl(anchorEl) || ownerDocument(this.$refs.popover).body;
       const anchorRect = anchorElement.getBoundingClientRect();
       const anchorVertical = contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
 
@@ -327,7 +399,7 @@ export default {
 
       let contentAnchorOffset = 0;
 
-      if (getContentAnchorEl && anchorReference === 'anchorEl') {
+      if (getContentAnchorEl && anchorReference === 'anchor-el') {
         const contentAnchorEl = getContentAnchorEl(element);
 
         if (contentAnchorEl && contains(element, contentAnchorEl)) {
