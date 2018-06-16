@@ -143,9 +143,9 @@ export default {
   },
 
   mounted: function(){
-
     this.setPositioningStyles(this.$refs.popover);
-
+    const win = ownerWindow(this.$refs.popover);
+    win.addEventListener('resize', this.handleResize, false);
   },
 
   updated: function(){
@@ -153,7 +153,8 @@ export default {
   },
 
   beforeDestroy: function(){
-
+    const win = ownerWindow(this.$refs.popover);
+    win.removeEventListener('resize', this.handleResize, false);
   },
 
   methods: {
@@ -373,6 +374,12 @@ export default {
 
     handleGetOffsetLeft: getOffsetLeft,
 
+
+
+    handleResize: debounce(function(){
+      console.warn('handleResize');
+      this.setPositioningStyles(this.$refs.popover);
+    }, 166), // Corresponds to 10 frames at 60 Hz.
 
 
   },
