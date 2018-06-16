@@ -73,7 +73,7 @@ module.exports = {
 
       {
         test: /\.js$/,
-        //exclude: path.resolve(__dirname, 'node_modules'),
+        exclude: path.resolve(__dirname, './dist'), // https://github.com/webpack/webpack/issues/2030#issuecomment-363009197
         include: [
           path.resolve(__dirname),
         ],
@@ -107,7 +107,7 @@ module.exports = {
         ],
       },
 
-
+      /*
       {
         test: /\.vue$/,
         //exclude: /node_modules/,
@@ -120,6 +120,7 @@ module.exports = {
           },
         ],
       },
+      */
 
 
     ]
@@ -145,6 +146,9 @@ if (NODE_ENV==='production') {
 
   module.exports.devtool = 'source-map';
   module.exports.output.filename = '[name].js';
+
+  module.exports.output.libraryExport = 'default';
+  module.exports.output.libraryTarget = 'umd';
 
   module.exports.optimization = {
     minimize: true,
