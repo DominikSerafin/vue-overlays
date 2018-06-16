@@ -86,11 +86,47 @@ const popoverStyles = function(){ // paper:
 
 
 
+
 export default {
 
   name: 'Popover',
 
   props: {
+
+    transformOrigin: {
+      default: function(){
+        return {
+          vertical: 'top',
+          horizontal: 'left',
+        }
+      },
+    },
+
+    anchorEl: {
+
+    },
+
+    anchorOrigin: {
+      default: function(){
+        return {
+          vertical: 'top',
+          horizontal: 'left',
+        }
+      },
+    },
+
+    getContentAnchorEl: {
+
+    },
+
+    anchorReference: {
+      default: 'anchorEl',
+    },
+
+    marginThreshold: {
+      default: 16,
+    },
+
 
   },
 
@@ -107,6 +143,8 @@ export default {
   },
 
   mounted: function(){
+
+    this.setPositioningStyles(this.$refs.popover);
 
   },
 
@@ -146,7 +184,11 @@ export default {
 
 
     getPositioningStyle: function(element){
-      const { anchorEl, anchorReference, marginThreshold } = this.props;
+
+      const anchorEl = this.$props.anchorEl;
+      const anchorReference = this.$props.anchorReference;
+      const marginThreshold = this.$props.marginThreshold;
+
 
       // Check if the parent has requested anchoring on an inner content node
       const contentAnchorOffset = this.getContentAnchorOffset(element);
@@ -193,7 +235,7 @@ export default {
         transformOrigin.vertical += diff;
       }
 
-      warning(
+      console.warn(
         elemRect.height < heightThreshold || !elemRect.height || !heightThreshold,
         [
           'Material-UI: the popover component is too tall.',
@@ -229,6 +271,107 @@ export default {
 
 
 
+
+    // Returns the top/left offset of the position
+    // to attach to on the anchor element (or body if none is provided)
+    getAnchorOffset(contentAnchorOffset) {
+
+
+      const anchorEl = this.$props.anchorEl;
+      const anchorOrigin = this.$props.anchorOrigin;
+      const anchorReference = this.$props.anchorReference;
+      const anchorPosition = this.$props.anchorPosition;
+
+
+
+      if (anchorReference === 'anchorPosition') {
+        console.warn(
+          anchorPosition,
+          'Material-UI: you need to provide a `anchorPosition` property when using ' +
+            '<Popover anchorReference="anchorPosition" />.',
+        );
+        return anchorPosition;
+      }
+
+      // If an anchor element wasn't provided, just use the parent body element of this Popover
+
+      const anchorElement =
+        getAnchorEl(anchorEl) || ownerDocument(ReactDOM.findDOMNode(this.transitionEl)).body;
+
+      const anchorRect = anchorElement.getBoundingClientRect();
+      const anchorVertical = contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
+
+      return {
+        top: anchorRect.top + this.handleGetOffsetTop(anchorRect, anchorVertical),
+        left: anchorRect.left + this.handleGetOffsetLeft(anchorRect, anchorOrigin.horizontal),
+      };
+    },
+
+
+
+
+
+
+    // Returns the vertical offset of inner content to anchor the transform on if provided
+    getContentAnchorOffset: function(element){
+
+      const anchorOrigin = this.$props.anchorOrigin;
+      const getContentAnchorEl = this.$props.getContentAnchorEl;
+      const anchorReference = this.$props.anchorReference;
+
+      let contentAnchorOffset = 0;
+
+      if (getContentAnchorEl && anchorReference === 'anchorEl') {
+        const contentAnchorEl = getContentAnchorEl(element);
+
+        if (contentAnchorEl && contains(element, contentAnchorEl)) {
+          const scrollTop = getScrollParent(element, contentAnchorEl);
+          contentAnchorOffset =
+            contentAnchorEl.offsetTop + contentAnchorEl.clientHeight / 2 - scrollTop || 0;
+        }
+
+        // != the default value
+        console.warn(
+          anchorOrigin.vertical === 'top',
+          [
+            'Material-UI: you can not change the default `anchorOrigin.vertical` value ',
+            'when also providing the `getContentAnchorEl` property to the popover component.',
+            'Only use one of the two properties.',
+            'Set `getContentAnchorEl` to null or left `anchorOrigin.vertical` unchanged.',
+          ].join('\n'),
+        );
+      }
+
+      return contentAnchorOffset;
+    },
+
+
+
+
+    // Return the base transform origin using the element
+    // and taking the content anchor offset into account if in use
+    getTransformOrigin: function(elemRect, contentAnchorOffset) {
+      if (typeof contentAnchorOffset === 'undefined') {
+        var contentAnchorOffset = 0;
+      }
+
+      const transformOrigin = this.$props.transformOrigin;
+
+
+      return {
+        vertical: this.handleGetOffsetTop(elemRect, transformOrigin.vertical) + contentAnchorOffset,
+        horizontal: this.handleGetOffsetLeft(elemRect, transformOrigin.horizontal),
+      };
+    },
+
+
+
+
+
+    handleGetOffsetTop: getOffsetTop,
+
+
+    handleGetOffsetLeft: getOffsetLeft,
 
 
 

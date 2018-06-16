@@ -62,11 +62,11 @@
       <section class="section">
         <h2>Popover Debug</h2>
 
-        <button type="button" @click="showPopover=true">
+        <button type="button" @click="showPopover=true" ref="popoverAnchor">
           Show Popover
         </button>
 
-        <Popover v-if="showPopover" @close-request="showPopover=false">
+        <Popover v-if="showPopover" @close-request="showPopover=false" :anchor-el="$refs.popoverAnchor">
           <div style="background:white;width:400px;">
             Hello World, I'm a Popover. <br>
             <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
