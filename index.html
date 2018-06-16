@@ -184,7 +184,7 @@
           <button type="button" @click="modalOpen4=!modalOpen4">Toggle Modal 4</button>
 
           <Modal v-if="modalOpen1" @close="modalOpen1=false">
-            <div :style="getModalStyle(1)">
+            <div tabindex="-1" :style="getModalStyle(1)">
 
               <h4>MODAL 1!</h4>
               <p>$data.daySeconds: {{daySeconds}}</p>

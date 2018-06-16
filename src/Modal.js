@@ -193,18 +193,24 @@ export default {
 
         if (modalEl && !contains(modalEl, currentActiveElement)) {
           this.$_lastFocus = currentActiveElement;
+
           if (!modalEl.hasAttribute('tabIndex')) {
+
             warning(
               false,
               [
-                'Vue-Overlays: the modal content node does not accept focus.',
+                'Vue-Overlays: the Modal direct descendant element does not accept focus.',
                 'For the benefit of assistive technologies, ' +
-                  'the tabIndex of the node is being set to "-1".',
+                'the tabindex of the node is being set to "-1".',
               ].join('\n'),
             );
+
             modalEl.setAttribute('tabIndex', -1);
+
           }
+
           modalEl.focus();
+
         }
 
       });
@@ -271,6 +277,8 @@ export default {
         'click': this.handleBackdropClick,
       },
     });
+
+
 
     var portal = h('Portal', {
       ref: 'portal',
