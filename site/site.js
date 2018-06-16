@@ -26,6 +26,7 @@ var app = new Vue({
       showPopover1: false,
       showPopover1b: false,
       showPopover2: false,
+      popover2Pos: {top:50,left:50,},
       showPopover3: false,
       popover3Event: null,
     };
@@ -49,6 +50,17 @@ var app = new Vue({
       this.popover3Event = event;
       this.showPopover3 = true;
     },
+
+
+    popover2BtnClick: function(event){
+      this.popover2Pos = {
+        top: event.clientY,
+        left: event.clientX,
+      };
+      this.showPopover2 = true;
+    },
+
+
 
 
 

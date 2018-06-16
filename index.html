@@ -72,7 +72,7 @@
           Show Popover 1b (anchorEl b)
         </button>
 
-        <button type="button" @click="showPopover2=true" ref="popoverAnchor2">
+        <button type="button" @click="popover2BtnClick" ref="popoverAnchor2">
           Show Popover 2 (anchorPosition)
         </button>
 
@@ -127,7 +127,7 @@
           v-if="showPopover2"
           @close-request="showPopover2=false"
           :anchor-reference="'anchor-position'"
-          :anchor-position="{top: 200, left: 100}"
+          :anchor-position="popover2Pos"
           :anchor-el="$refs.popoverAnchor2"
           :transform-origin="{vertical: 'center', horizontal: 'center'}"
           :anchor-origin="{vertical: 'center', horizontal: 'center'}"
