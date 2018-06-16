@@ -7,6 +7,7 @@ Work in progress
 
 ## TODO:
 
+* Two installation types: 1) automatic Vue.use() that installs all components 2) manual installation of every component on user side
 * Good transitions support
 * Fix hackish Portal beforeDestroy cleanup
 * Refactor/improve sitauation around zIndex/'mui-fixed'/scrollbars/hidden overflow
