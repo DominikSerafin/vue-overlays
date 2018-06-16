@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="./site/css/example.css">
 
   <!-- Vue -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./site/vue-2.5.16.js"></script>
 
   <!-- Vue Overlays -->
   <script src="./dist/index.js"></script>
@@ -43,6 +43,7 @@
         <p>$data.daySeconds: {{daySeconds}}</p>
         <p>$data.count: {{count}}</p>
         <p>$data.showPopover1: {{showPopover1}}</p>
+        <p>$data.showPopover1b: {{showPopover1b}}</p>
         <p>$data.showPopover2: {{showPopover2}}</p>
         <p>$data.showPopover3: {{showPopover3}}</p>
         <p>$data.modalOpen1: {{modalOpen1}}</p>
@@ -65,28 +66,26 @@
         <h2>Popover Debug</h2>
 
         <button type="button" @click="showPopover1=true" ref="popoverAnchor1">
-          Show Popover 1 (anchorEl)
+          Show Popover 1 (anchor-el)
         </button>
 
         <button type="button" @click="showPopover1b=true" ref="popoverAnchor1b">
-          Show Popover 1b (anchorEl b)
+          Show Popover 1b (anchor-el)
         </button>
 
-        <button type="button" @click="popover2BtnClick" ref="popoverAnchor2">
-          Show Popover 2 (anchorPosition)
+        <button type="button" @click="popover2BtnClick">
+          Show Popover 2 (anchor-position + event)
         </button>
 
-        <button type="button" @click="popover3BtnClick" ref="popoverAnchor3">
-          Show Popover 3 (pointerPosition)
+        <button type="button" @click="showPopover3=true">
+          Show Popover 3 (anchor-position)
         </button>
-
-
 
 
         <Popover
           :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
           v-if="showPopover1"
-          @close-request="showPopover1=false"
+          @close="showPopover1=false"
           :anchor-el="$refs.popoverAnchor1"
           :transform-origin="{vertical: 'center', horizontal: 'center'}"
           :anchor-origin="{vertical: 'center', horizontal: 'center'}"
@@ -104,9 +103,8 @@
 
 
         <Popover
-          :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
           v-if="showPopover1b"
-          @close-request="showPopover1b=false"
+          @close="showPopover1b=false"
           :anchor-el="$refs.popoverAnchor1b"
           :transform-origin="{vertical: 'bottom', horizontal: 'left'}"
           :anchor-origin="{vertical: 'top', horizontal: 'left'}"
@@ -125,12 +123,10 @@
         <Popover
           :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
           v-if="showPopover2"
-          @close-request="showPopover2=false"
+          @close="showPopover2=false"
           :anchor-reference="'anchor-position'"
           :anchor-position="popover2Pos"
-          :anchor-el="$refs.popoverAnchor2"
           :transform-origin="{vertical: 'center', horizontal: 'center'}"
-          :anchor-origin="{vertical: 'center', horizontal: 'center'}"
         >
           <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
             Hello World, I'm a Popover 2. <br>
@@ -147,11 +143,10 @@
         <Popover
           :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
           v-if="showPopover3"
-          @close-request="showPopover3=false"
-          :anchor-reference="'anchor-event'"
-          :anchor-event="popover3Event"
-          :transform-origin="{vertical: 'center', horizontal: 'center'}"
-          :anchor-origin="{vertical: 'center', horizontal: 'center'}"
+          @close="showPopover3=false"
+          :anchor-reference="'anchor-position'"
+          :anchor-position="{top: 50, left: 50}"
+          :transform-origin="{vertical: 'left', horizontal: 'left'}"
         >
           <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
             Hello World, I'm a Popover 3. <br>
@@ -162,6 +157,8 @@
             </button>
           </div>
         </Popover>
+
+
 
 
 
@@ -186,7 +183,7 @@
           <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
           <button type="button" @click="modalOpen4=!modalOpen4">Toggle Modal 4</button>
 
-          <Modal v-if="modalOpen1" @close-request="modalOpen1=false">
+          <Modal v-if="modalOpen1" @close="modalOpen1=false">
             <div :style="getModalStyle(1)">
 
               <h4>MODAL 1!</h4>
@@ -194,7 +191,7 @@
               <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
               <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
 
-              <Modal v-if="modalOpen2" @close-request="modalOpen2=false" >
+              <Modal v-if="modalOpen2" @close="modalOpen2=false" >
                 <div :style="getModalStyle(2)">
 
                   <h4>MODAL 2!</h4>
@@ -202,7 +199,7 @@
                   <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
                   <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
-                  <Modal v-if="modalOpen3" @close-request="modalOpen3=false">
+                  <Modal v-if="modalOpen3" @close="modalOpen3=false">
                     <div :style="getModalStyle(3)">
 
                       <h4>MODAL 3!</h4>
@@ -220,7 +217,7 @@
           </Modal>
 
 
-          <Modal v-if="modalOpen4" @close-request="modalOpen4=false">
+          <Modal v-if="modalOpen4" @close="modalOpen4=false">
             <div :style="getModalStyle(4)">
 
               <h4>MODAL 4!</h4>

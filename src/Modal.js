@@ -157,7 +157,7 @@ export default {
       this.$emit('escape-key-down', event);
 
       if (!this.$props.disableEscapeKeyDown)
-        this.$emit('close-request', event, 'escape-key-down');
+        this.$emit('close', event, 'escape-key-down');
 
 
     },
@@ -170,7 +170,7 @@ export default {
       this.$emit('backdrop-click', event);
 
       if (!this.$props.disableBackdropClick)
-        this.$emit('close-request', event, 'backdrop-click');
+        this.$emit('close', event, 'backdrop-click');
 
     },
 

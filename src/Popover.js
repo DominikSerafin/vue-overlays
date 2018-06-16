@@ -1,14 +1,9 @@
 import contains from './util/dom-helpers/query/contains';
 import ownerDocument from './util/dom-helpers/ownerDocument';
-
 import debounce from './util/debounce';
-//import EventListener from 'react-event-listener';
 import ownerWindow from './util/ownerWindow';
 import warning from './util/warning';
-
 import Modal from './Modal.js';
-
-
 
 
 function getOffsetTop(rect, vertical) {
@@ -107,9 +102,6 @@ export default {
       },
     },
 
-    anchorEvent: {
-
-    },
 
     anchorEl: {
 
@@ -173,7 +165,7 @@ export default {
   methods: {
 
     handleCloseRequest: function(event, source){
-      this.$emit('close-request', event, source);
+      this.$emit('close', event, source);
     },
 
 
@@ -199,7 +191,6 @@ export default {
 
     getPositioningStyle: function(element){
 
-      const anchorEvent = this.$props.anchorEvent;
       const anchorEl = this.$props.anchorEl;
       const anchorReference = this.$props.anchorReference;
       const marginThreshold = this.$props.marginThreshold;
@@ -230,7 +221,7 @@ export default {
 
 
       // Use the parent window
-      const containerWindow = ownerWindow(getAnchorEl(anchorEl) ? getAnchorEl(anchorEl) : this.$refs.popover);
+      const containerWindow = ownerWindow(getAnchorEl(anchorEl));
 
       // Window thresholds taking required margin into account
       const heightThreshold = containerWindow.innerHeight - marginThreshold;
@@ -240,43 +231,19 @@ export default {
 
 
 
-      let top;
-      let left;
-      let bottom;
-      let right;
 
+      // Get the offset of of the anchoring element
+      const anchorOffset = this.getAnchorOffset(contentAnchorOffset);
 
-      //
+      // Calculate element positioning
+      let top = anchorOffset.top - transformOrigin.vertical;
+      let left = anchorOffset.left - transformOrigin.horizontal;
 
-      if(anchorReference === 'anchor-el' || anchorReference === 'anchor-position') {
-
-        // Get the offset of of the anchoring element
-        const anchorOffset = this.getAnchorOffset(contentAnchorOffset);
-
-        // Calculate element positioning
-        top = anchorOffset.top - transformOrigin.vertical;
-        left = anchorOffset.left - transformOrigin.horizontal;
-
-        bottom = top + elemRect.height;
-        right = left + elemRect.width;
-
-
-      }
+      const bottom = top + elemRect.height;
+      const right = left + elemRect.width;
 
 
 
-      //
-      if (anchorReference === 'anchor-event') {
-
-        top = anchorEvent.clientY;
-        left = anchorEvent.clientX;
-
-        bottom = top + elemRect.height;
-        right = left + elemRect.width;
-
-      }
-
-      console.warn(bottom);
 
 
 
@@ -343,7 +310,6 @@ export default {
 
 
       const anchorEl = this.$props.anchorEl;
-      const anchorEvent = this.$props.anchorEvent;
       const anchorOrigin = this.$props.anchorOrigin;
       const anchorReference = this.$props.anchorReference;
       const anchorPosition = this.$props.anchorPosition;
@@ -357,19 +323,6 @@ export default {
         );
         return anchorPosition;
       }
-
-
-
-
-      // if reference is event (mouse click or touch)
-      if (anchorReference === 'anchor-event') {
-        const anchorVertical = contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
-        return {
-          top: anchorRect.top + this.handleGetOffsetTop(anchorRect, anchorVertical),
-          left: anchorRect.left + this.handleGetOffsetLeft(anchorRect, anchorOrigin.horizontal),
-        };
-      }
-
 
 
       // if reference is element...
@@ -492,7 +445,7 @@ export default {
         backdropInvisible: true,
       },
       on: {
-        'close-request': this.handleCloseRequest,
+        'close': this.handleCloseRequest,
       },
     }, [popover]);
     return modal;
