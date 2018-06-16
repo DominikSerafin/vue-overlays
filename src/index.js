@@ -1,6 +1,10 @@
 /*
   TODO:
 
+  * Good transitions support
+  * Fix hackish Portal beforeDestroy cleanup
+  * Make ModalManager scoped the same way as in MUI version
+  * Good SRR support
   * Good way to customize styling/classes of VO components
   * Passing DOM attributes like aria-* to VO components
   * Sinking props into lower level components (e.g. Popover props => Modal props)

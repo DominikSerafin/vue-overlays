@@ -17,6 +17,7 @@ var app = new Vue({
   data: function(){
     return {
       count: 1,
+      daySeconds: 0,
       showPortal: false,
       modalOpen1: false,
       modalOpen2: false,
@@ -27,14 +28,30 @@ var app = new Vue({
   },
 
   created: function(){
+    this.setDaySeconds();
   },
 
   mounted: function(){
     //this._portalContainer = window.document.querySelector('.js-custom-container');
     //this.$forceUpdate();
+
+    this.daySecondsInterval();
   },
 
   methods: {
+
+    setDaySeconds: function(){
+      var dt = new Date();
+      var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+      this.daySeconds = secs;
+    },
+
+    daySecondsInterval: function(){
+      setInterval(function () {
+        this.setDaySeconds();
+      }.bind(this), 1000);
+    },
+
     onRendered: function(){
     },
 

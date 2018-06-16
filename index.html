@@ -40,7 +40,7 @@
         <h1>Vue Overlays</h1>
         <p>Portal, Modal, Popover.</p>
 
-
+        <p>$data.daySeconds: {{daySeconds}}</p>
         <p>$data.count: {{count}}</p>
         <p>$data.showPopover: {{showPopover}}</p>
         <p>$data.modalOpen1: {{modalOpen1}}</p>
@@ -76,6 +76,7 @@
         >
           <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
             Hello World, I'm a Popover. <br>
+            <p>$data.daySeconds: {{daySeconds}}</p>
             <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
             <button type="button" @click="showPopover=false">
               Hide Popover
@@ -108,6 +109,7 @@
             <div :style="getModalStyle(1)">
 
               <h4>MODAL 1!</h4>
+              <p>$data.daySeconds: {{daySeconds}}</p>
               <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
               <button type="button" @click="modalOpen2=!modalOpen2">Toggle Modal 2</button>
 
@@ -115,6 +117,7 @@
                 <div :style="getModalStyle(2)">
 
                   <h4>MODAL 2!</h4>
+                  <p>$data.daySeconds: {{daySeconds}}</p>
                   <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
                   <button type="button" @click="modalOpen3=!modalOpen3">Toggle Modal 3</button>
 
@@ -122,6 +125,7 @@
                     <div :style="getModalStyle(3)">
 
                       <h4>MODAL 3!</h4>
+                      <p>$data.daySeconds: {{daySeconds}}</p>
                       <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
                       <button type="button" @click="modalOpen4=!modalOpen4">Toggle Modal 4</button>
 
@@ -139,6 +143,7 @@
             <div :style="getModalStyle(4)">
 
               <h4>MODAL 4!</h4>
+              <p>$data.daySeconds: {{daySeconds}}</p>
               <button type="button" @click="count++">count + 1</button> <code>$state.count: {{count}}</code> <br>
               <button type="button" @click="modalOpen1=!modalOpen1">Toggle Modal 1</button>
 
