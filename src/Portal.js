@@ -1,5 +1,6 @@
 import ownerDocument from './util/dom-helpers/ownerDocument';
 import warning from './util/warning';
+import extend from './util/extend';
 export default {
 
   name: 'Portal',

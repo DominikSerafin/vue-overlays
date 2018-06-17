@@ -3,6 +3,8 @@ import ownerDocument from './util/dom-helpers/ownerDocument';
 import debounce from './util/debounce';
 import ownerWindow from './util/ownerWindow';
 import warning from './util/warning';
+import extend from './util/extend';
+import cloneWithoutReactivity from './util/cloneWithoutReactivity';
 import Modal from './Modal.js';
 
 
@@ -88,6 +90,13 @@ export default {
   name: 'Popover',
 
   props: {
+
+    modalProps: {
+      type: Object,
+      default: function(){
+        return {};
+      },
+    },
 
     popoverStyle: {
 
@@ -439,11 +448,15 @@ export default {
     }, [this.$slots.default]);
 
 
+
+    var finalModalProps = extend( {
+      backdropInvisible: true,
+    }, cloneWithoutReactivity(this.$props.modalProps) );
+
+
     var modal = h('Modal', {
       ref: 'modal',
-      attrs: {
-        backdropInvisible: true,
-      },
+      attrs: finalModalProps,
       on: {
         'close': this.handleCloseRequest,
       },

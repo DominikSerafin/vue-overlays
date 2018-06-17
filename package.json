@@ -1,6 +1,6 @@
 {
   "name": "vue-overlays",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": false,
   "description": "Vue Overlays (Portal, Modal, Popover) based on React-Overlays and React Material-UI 1.X",
   "author": "Dominik Serafin <dominikdsgnr@gmail.com>",

@@ -3,6 +3,7 @@ import contains from './util/dom-helpers/query/contains';
 import inDOM from './util/dom-helpers/util/inDOM';
 import ownerDocument from './util/dom-helpers/ownerDocument';
 import warning from './util/warning';
+import extend from './util/extend';
 //import { createChainedFunction } from './util/helpers';
 
 import Portal from './Portal.js';
@@ -115,7 +116,12 @@ export default {
       // (pull requests welcome)
       const doc = ownerDocument(this.$_mountNode);
       const container = this.$props.container || doc.body;
-      container.__vo_manager__ = container.__vo_manager__ ? container.__vo_manager__ : new ModalManager();
+
+      container.__vo_manager__ = (
+        container.__vo_manager__ ?
+          container.__vo_manager__ : new ModalManager({handleContainerOverflow: false})
+      );
+
       this.$_manager = container.__vo_manager__;
     },
 

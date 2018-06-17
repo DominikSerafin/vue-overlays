@@ -1,3 +1,6 @@
+import extend from './util/extend';
+
+
 const rootStyles = function(){
   return {
     zIndex: -1,

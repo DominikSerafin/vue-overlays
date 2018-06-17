@@ -7,6 +7,21 @@ import isOverflowing from './util/isOverflowing';
 import { ariaHidden, hideSiblings, showSiblings } from './util/manageAriaHidden';
 import warning from './util/warning';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function findIndexOf(data, callback) {
   let idx = -1;
   data.some((item, index) => {
@@ -19,9 +34,29 @@ function findIndexOf(data, callback) {
   return idx;
 }
 
+
+
+
+
+
+
+
+
+
 function getPaddingRight(node) {
   return parseInt(css(node, 'paddingRight') || 0, 10);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 function setContainerStyle(data, container) {
   const style = { overflow: 'hidden' };
@@ -52,6 +87,15 @@ function setContainerStyle(data, container) {
   });
 }
 
+
+
+
+
+
+
+
+
+
 function removeContainerStyle(data, container) {
   Object.keys(data.style).forEach(key => {
     container.style[key] = data.style[key];
@@ -63,6 +107,28 @@ function removeContainerStyle(data, container) {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @ignore - do not document.
  *
@@ -72,21 +138,59 @@ function removeContainerStyle(data, container) {
  */
 class ModalManager {
 
+
+
+
+
+
+
+
+
+
+
+
+
   constructor(options = {}) {
+
     const { hideSiblingNodes = true, handleContainerOverflow = true } = options;
 
     this.hideSiblingNodes = hideSiblingNodes;
+
     this.handleContainerOverflow = handleContainerOverflow;
 
     // this.modals[modalIdx] = modal
     this.modals = [];
+
     // this.containers[containerIdx] = container
     this.containers = [];
+
     // this.data[containerIdx] = {
     //   modals: [],
     // }
     this.data = [];
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -127,6 +231,23 @@ class ModalManager {
     return modalIdx;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   remove(modal) {
     const modalIdx = this.modals.indexOf(modal);
 
@@ -162,9 +283,28 @@ class ModalManager {
     return modalIdx;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
   isTopModal(modal) {
     return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
   }
+
+
+
+
+
+
+
 
 }
 
