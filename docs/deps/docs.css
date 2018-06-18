@@ -1,8 +1,46 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 
+/* iframe */
+iframe {
+
+}
+
+iframe:before {
+  background: #ddd;
+  height: 20px;
+  width: 100%;
+}
+
+
+
+.iframe-browser {
+  background: white;
+  position: relative;
+  width: 100%;
+  border-radius: 3px;
+
+}
+
+.iframe-browser iframe {
+  border: 0;
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+
+  border: 1px solid #eee;
+  border-top: none;
+}
+
+.iframe-browser:before {
+  content: '';
+  background: #ddd;
+  height: 24px;
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  display: block;
+}
 
 
 
@@ -75,6 +113,7 @@ body {
     /* content */
     .content {
       padding: 40px;
+      padding-right: 20px;
     }
 
     @media(max-width: 960px) {
@@ -287,10 +326,11 @@ body {
       border: none;
       box-shadow: none;
       margin: 0;
-      padding: 15px 5px 14px 0;
+      padding: 15px 5px 14px 5px;
       cursor: pointer;
       outline-color: #ddd;
       margin-right: 5px;
+      margin-left: -7px;
     }
 
     @media(min-width: 960px) {
@@ -304,22 +344,94 @@ body {
       display: inline-block;
       font-size: 17px;
       font-weight: 600;
-      line-height: 1.2;
-      padding-top: 14px;
-      color: rgba(0,0,0,1);
+      line-height: 1.4;
+      margin-top: 8px;
+
+      padding: 6px 12px;
+      background: #333;
+      background: #42b983;
+      color: rgba(255,255,255,1);
+      border-radius: 4px;
+    }
+
+    .topbar-title > span:nth-of-type(1) {
+      font-weight: 400;
+      color: rgba(255,255,255,.8);
+    }
+
+    .topbar-title > span:nth-of-type(2) {
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+    }
+
+    .topbar-title > span:nth-of-type(3) {
+    color: rgba(255,255,255,1);
+    }
+
+
+    @media (max-width: 960px) {
+      .topbar-title > span:nth-of-type(1) {
+        display: none;
+      }
+      .topbar-title > span:nth-of-type(2) {
+        display: none;
+      }
     }
 
 
 
 
+    .topbar-badge-link {
+      display: inline-block;
+      margin-top: 9px;
+
+    }
+    .topbar-badge-link img {
+      border-radius: 3px;
+      transition: all 140ms ease-in-out;
+      filter: grayscale(100%);
+    }
+    .topbar-badge-link:hover img {
+      filter: grayscale(0%);
+    }
 
 
+    .topbar-icon-link {
+      display: inline-block;
+      margin-left: 15px;
+      margin-top: 9px;
+    }
+
+    .topbar-icon-link svg {
+    }
 
 
+    .topbar-icon-link.mod-github svg {
+      width: 20px;
+      height: 20px;
+    }
+    .topbar-icon-link.mod-github svg path {
+      fill: rgba(0,0,0,.4);
+      transition: all 80ms ease-in-out;
+    }
+    .topbar-icon-link.mod-github:hover svg path {
+      fill: rgba(0,0,0,1);
+    }
 
 
+    .topbar-icon-link.mod-npm svg {
+      width: 20px;
+      height: 20px;
+    }
 
+    .topbar-icon-link.mod-npm svg rect {
+      fill: rgba(0,0,0,.4);
+      transition: 80ms ease-in-out;
+    }
 
+    .topbar-icon-link.mod-npm:hover svg rect {
+      fill: #cb3837;
+    }
 
 
 
@@ -516,7 +628,7 @@ body {
     .nav-content-inner {
       height: 100%;
       width: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: hidden;
     }
 

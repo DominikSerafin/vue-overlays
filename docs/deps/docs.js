@@ -37,7 +37,14 @@ var topbar = new Vue({
 
   data: function(){
     return {
+      badgesOn: false,
     }
+  },
+
+  mounted: function(){
+    setTimeout(function () {
+      this.badgesOn = true;
+    }.bind(this), 500);
   },
 
 })
