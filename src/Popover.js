@@ -73,10 +73,10 @@ const popoverStyles = function(){ // paper:
     overflowX: 'hidden',
     // So we see the popover when it's empty.
     // It's most likely on issue on userland.
-    minWidth: 10,
-    minHeight: 10,
-    maxWidth: 'calc(100% - 20px)',
-    maxHeight: 'calc(100% - 20px)',
+    minWidth: 20,
+    minHeight: 20,
+    maxWidth: 'calc(100% - 40px)',
+    maxHeight: 'calc(100% - 40px)',
     // We disable the focus ring for mouse, touch and keyboard users.
     outline: 'none',
   }
@@ -138,7 +138,7 @@ export default {
     },
 
     marginThreshold: {
-      default: 10,
+      default: 20,
     },
 
 
@@ -160,6 +160,7 @@ export default {
     this.setPositioningStyles(this.$refs.popover);
     const win = ownerWindow(this.$refs.popover);
     win.addEventListener('resize', this.handleResize, false);
+    win.addEventListener('scroll', this.handleScroll, false); //TODO: enable this only when manager overflow control is disabled
   },
 
   updated: function(){
@@ -169,6 +170,7 @@ export default {
   beforeDestroy: function(){
     const win = ownerWindow(this.$refs.popover);
     win.removeEventListener('resize', this.handleResize, false);
+    win.removeEventListener('scroll', this.handleScroll, false);
   },
 
   methods: {
@@ -416,6 +418,11 @@ export default {
 
 
     handleResize: debounce(function(){
+      this.setPositioningStyles(this.$refs.popover);
+    }, 166), // Corresponds to 10 frames at 60 Hz.
+
+
+    handleScroll: debounce(function(){
       this.setPositioningStyles(this.$refs.popover);
     }, 166), // Corresponds to 10 frames at 60 Hz.
 
