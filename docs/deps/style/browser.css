@@ -91,12 +91,15 @@
   font-size: 12px;
   padding: 4px 5px;
   width: 100%;
+  font-weight: 400;
+  color: rgba(0,0,0,.8);
 
   margin: 0 7px;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
 }
 
 
