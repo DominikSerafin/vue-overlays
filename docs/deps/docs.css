@@ -23,6 +23,12 @@ iframe:before {
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
 
+  max-width: 900px;
+  transition: all 400ms ease-in-out;
+}
+
+.browser.mod-width-mobile {
+  max-width: 375px;
 }
 
 .browser-window {
@@ -38,6 +44,7 @@ iframe:before {
 .browser-window iframe {
   border: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   border-radius: 0 0 5px 5px;
 }
@@ -71,11 +78,20 @@ iframe:before {
   width: 100%;
 
   margin: 0 7px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .browser-omnibox-icon {
   margin: 0 5px;
   display: inline-block;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline-color: white;
+  cursor: pointer;
 }
 
 .browser-omnibox-icon svg {
@@ -89,12 +105,43 @@ iframe:before {
 }
 
 
+.browser-omnibox-icon.mod-back,
+.browser-omnibox-icon.mod-forward,
+.browser-omnibox-icon.mod-refresh
+{
+  cursor: default;
+}
 .browser-omnibox-icon.mod-back svg path,
 .browser-omnibox-icon.mod-forward svg path,
 .browser-omnibox-icon.mod-refresh svg path
 {
   fill: rgba(255,255,255,.3);
+  cursor: default;
 }
+
+
+
+.browser-omnibox-icon.mod-width-mobile svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+@media (max-width: 500px) {
+  .browser-omnibox-icon.mod-width-mobile {
+    display: none;
+  }
+}
+
+
+.browser-omnibox-icon.mod-width-mobile svg path {
+  fill: rgba(255,255,255,.6);
+}
+
+.browser-omnibox-icon.mod-width-mobile.mod-active svg path {
+  fill: rgba(255,255,255,.95);
+}
+
 
 .browser-omnibox-icon.mod-external svg path
 {
@@ -188,8 +235,37 @@ iframe:before {
     }
 
 
+    .content-footer {
+      border-top: 1px solid #eee;
+      margin-top: 40px;
+      padding: 40px 40px 40px 40px;
+    }
+
+    @media(max-width: 960px) {
+      .content-footer {
+        padding: 20px 20px 20px 20px;
+      }
+    }
 
 
+    .content-footer p {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(0,0,0,.8);
+    }
+
+    .content-footer a {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(0,0,0,1);
+      text-decoration: none;
+    }
 
 
 
@@ -482,6 +558,7 @@ iframe:before {
       display: inline-block;
       margin-left: 15px;
       margin-top: 16px;
+
     }
 
     .topbar-icon-link svg {

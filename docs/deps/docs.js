@@ -1,76 +1,6 @@
 
 
 
-/* iframe component */
-Vue.component('browser', {
-
-  name: 'browser',
-
-  props: {
-
-    'url': {
-      type: String,
-      required: true,
-    },
-
-  },
-
-  data: function(){
-    return {
-    }
-  },
-
-  template: `<div class="browser">
-
-    <div class="browser-top">
-
-      <div class="browser-omnibox-icon mod-back">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
-        <g id="surface1">
-        <path style=" " d="M 11.78125 2.28125 L 2.78125 11.28125 L 2.09375 12 L 2.78125 12.71875 L 11.78125 21.71875 L 13.21875 20.28125 L 5.9375 13 L 22 13 L 22 11 L 5.9375 11 L 13.21875 3.71875 Z "/>
-        </g>
-        </svg>
-
-      </div>
-
-      <div class="browser-omnibox-icon mod-forward">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
-        <g id="surface1">
-        <path style=" " d="M 12.21875 2.28125 L 10.78125 3.71875 L 18.0625 11 L 2 11 L 2 13 L 18.0625 13 L 10.78125 20.28125 L 12.21875 21.71875 L 21.21875 12.71875 L 21.90625 12 L 21.21875 11.28125 Z "/>
-        </g>
-        </svg>
-      </div>
-
-      <div class="browser-omnibox-icon mod-refresh">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
-        <g id="surface1">
-        <path style=" " d="M 21 1.90625 L 18.46875 4.4375 C 16.707031 2.941406 14.472656 2 12 2 C 6.464844 2 2 6.464844 2 12 C 2 17.535156 6.464844 22 12 22 C 17.535156 22 22 17.535156 22 12 L 20 12 C 20 16.464844 16.464844 20 12 20 C 7.535156 20 4 16.464844 4 12 C 4 7.535156 7.535156 4 12 4 C 13.921875 4 15.660156 4.695313 17.0625 5.84375 L 14.90625 8 L 21 8 Z "/>
-        </g>
-        </svg>
-      </div>
-
-      <div class="browser-omnibox">{{url}}</div>
-
-      <a :href="url" target="_blank" rel="noopener noreferrer" class="browser-omnibox-icon mod-external">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
-        <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z" font-weight="400" font-family="sans-serif" white-space="normal" overflow="visible"/>
-        </svg>
-      </a>
-
-    </div>
-
-    <div class="browser-window">
-      <iframe :src="url" frameborder="0" width="100%" height="400"></iframe>
-    </div>
-
-  </div>`,
-
-});
-
-
-
-
-
 
 
 
@@ -143,6 +73,106 @@ var navWrapper = new Vue({
   },
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* iframe component */
+Vue.component('browser', {
+
+  name: 'browser',
+
+  props: {
+
+    'url': {
+      type: String,
+      required: true,
+    },
+
+  },
+
+  data: function(){
+    return {
+      widthMobile: false,
+    }
+  },
+
+  template: `<div class="browser" :class="{'mod-width-mobile': widthMobile}">
+
+    <div class="browser-top">
+
+      <div class="browser-omnibox-icon mod-back">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
+        <g id="surface1">
+        <path style=" " d="M 11.78125 2.28125 L 2.78125 11.28125 L 2.09375 12 L 2.78125 12.71875 L 11.78125 21.71875 L 13.21875 20.28125 L 5.9375 13 L 22 13 L 22 11 L 5.9375 11 L 13.21875 3.71875 Z "/>
+        </g>
+        </svg>
+
+      </div>
+
+      <div class="browser-omnibox-icon mod-forward">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
+        <g id="surface1">
+        <path style=" " d="M 12.21875 2.28125 L 10.78125 3.71875 L 18.0625 11 L 2 11 L 2 13 L 18.0625 13 L 10.78125 20.28125 L 12.21875 21.71875 L 21.21875 12.71875 L 21.90625 12 L 21.21875 11.28125 Z "/>
+        </g>
+        </svg>
+      </div>
+
+      <div class="browser-omnibox-icon mod-refresh">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
+        <g id="surface1">
+        <path style=" " d="M 21 1.90625 L 18.46875 4.4375 C 16.707031 2.941406 14.472656 2 12 2 C 6.464844 2 2 6.464844 2 12 C 2 17.535156 6.464844 22 12 22 C 17.535156 22 22 17.535156 22 12 L 20 12 C 20 16.464844 16.464844 20 12 20 C 7.535156 20 4 16.464844 4 12 C 4 7.535156 7.535156 4 12 4 C 13.921875 4 15.660156 4.695313 17.0625 5.84375 L 14.90625 8 L 21 8 Z "/>
+        </g>
+        </svg>
+      </div>
+
+      <div class="browser-omnibox">{{url}}</div>
+
+      <button type="button" class="browser-omnibox-icon mod-width-mobile" :class="{'mod-active': widthMobile}" @click.prevent="widthMobile=!widthMobile" title="Resize to mobile version">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
+        <g id="surface1">
+        <path style=" " d="M 17 2 L 7 2 C 5.898438 2 5 2.898438 5 4 L 5 20 C 5 21.101563 5.898438 22 7 22 L 17 22 C 18.101563 22 19 21.101563 19 20 L 19 4 C 19 2.898438 18.101563 2 17 2 Z M 12 21 C 11.449219 21 11 20.550781 11 20 C 11 19.449219 11.449219 19 12 19 C 12.550781 19 13 19.449219 13 20 C 13 20.550781 12.550781 21 12 21 Z M 17 18 L 7 18 L 7 5 L 17 5 Z "/>
+        </g>
+        </svg>
+      </button>
+
+      <a :href="url" target="_blank" rel="noopener noreferrer" class="browser-omnibox-icon mod-external" title="Open URL in new tab">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+        <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z" font-weight="400" font-family="sans-serif" white-space="normal" overflow="visible"/>
+        </svg>
+      </a>
+
+    </div>
+
+    <div class="browser-window">
+      <iframe :src="url" frameborder="0" width="100%" height="400"></iframe>
+    </div>
+
+  </div>`,
+
+});
+
+
+
+
 
 
 
