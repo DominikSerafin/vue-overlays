@@ -16,30 +16,95 @@ iframe:before {
 
 
 
-.iframe-browser {
+.browser {
   background: white;
   position: relative;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(43, 143, 97, 0.31), 0 2px 6px rgba(29, 110, 73, 0.08);
 
 }
 
-.iframe-browser iframe {
+.browser-window {
   border: 0;
   width: 100%;
-  border-radius: 0 0 3px 3px;
-
-  border: 1px solid #eee;
+  height: 500px;
+  border-radius: 0 0 5px 5px;
+  border: 2px solid #ccc;
+  border: 2px solid #42b983;
   border-top: none;
 }
 
-.iframe-browser:before {
-  content: '';
-  background: #ddd;
-  height: 24px;
+.browser-window iframe {
+  border: 0;
   width: 100%;
-  border-radius: 3px 3px 0 0;
+  height: 100%;
+  border-radius: 0 0 5px 5px;
+}
+
+
+.browser-top {
+  background: #ccc;
+  background: #42b983;
+
+  width: 100%;
+  border-radius: 5px 5px 0 0;
   display: block;
+  padding: 4px 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.browser-omnibox {
+  background: white;
+  /*
+  border: 1px solid #aaa;
+  border: 1px solid #2f9467;
+  */
+  border-radius: 2px;
+  line-height: 1.2;
+  font-size: 12px;
+  padding: 4px 5px;
+  width: 100%;
+
+  margin: 0 7px;
+}
+
+.browser-omnibox-icon {
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.browser-omnibox-icon svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 6px;
+}
+
+.browser-omnibox-icon svg path {
+  fill: #fff;
+}
+
+
+.browser-omnibox-icon.mod-back svg path,
+.browser-omnibox-icon.mod-forward svg path,
+.browser-omnibox-icon.mod-refresh svg path
+{
+  fill: rgba(255,255,255,.3);
+}
+
+.browser-omnibox-icon.mod-external svg path
+{
+  fill: #fff;
+}
+
+.browser-omnibox-icon.mod-external svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 6px;
 }
 
 
@@ -294,8 +359,8 @@ iframe:before {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    align-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
     padding: 0 20px;
     box-sizing: border-box;
   }
@@ -383,11 +448,11 @@ iframe:before {
 
     .topbar-badge-link {
       display: inline-block;
-      margin-top: 9px;
+      margin-top: 16px;
 
     }
     .topbar-badge-link img {
-      border-radius: 3px;
+      border-radius: 2px;
       transition: all 140ms ease-in-out;
       filter: grayscale(100%);
     }
@@ -395,11 +460,16 @@ iframe:before {
       filter: grayscale(0%);
     }
 
+    @media (max-width: 960px) {
+      .topbar-badge-link {
+        display: none;
+      }
+    }
 
     .topbar-icon-link {
       display: inline-block;
       margin-left: 15px;
-      margin-top: 9px;
+      margin-top: 16px;
     }
 
     .topbar-icon-link svg {

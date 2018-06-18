@@ -18,6 +18,7 @@
   <!-- Style -->
   <style>
     body {
+      background: #eee;
       font-family: sans-serif;
       padding: 20px;
     }
@@ -29,20 +30,100 @@
 </head>
 <body>
 
+  <div id="app">
+
+      <p>Elapsed seconds this day: {{daySeconds}}</p>
+
+      <button type="button" @click="popoverOpen=true" ref="popoverAnchor">
+        Open Popover
+      </button>
+
+
+      <Popover
+        :popover-style="{boxShadow: '0 2px 5px 0 rgba(0,0,0,.2)', borderRadius:'5px'}"
+        v-if="popoverOpen"
+        @close="popoverOpen=false"
+        :anchor-el="$refs.popoverAnchor"
+        :transform-origin="{vertical: 'top', horizontal: 'left'}"
+        :anchor-origin="{vertical: 'top', horizontal: 'right'}"
+      >
+        <div style="background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);">
+
+          <p>I'm content of the popover. </p>
+          <p>Elapsed seconds this day: {{daySeconds}}</p>
+
+          <button type="button" @click="popoverOpen=false">
+            Hide Popover
+          </button>
+
+        </div>
+      </Popover>
 
 
 
-  <h1>Hello World</h1>
+  </div>
 
 
 
 
+
+
+
+
+  <!-- Vue -->
+  <script src="../deps/vue-2.5.16.js"></script>
+
+
+  <!-- Library -->
+  <script src="../deps/library/index.js"></script>
 
 
 
   <!-- Script -->
-  <script src="../deps/vue-2.5.16.js"></script>
   <script>
+
+    Vue.component('Portal', window.vo.Portal);
+    Vue.component('Backdrop', window.vo.Backdrop);
+    Vue.component('Modal', window.vo.Modal);
+    Vue.component('Popover', window.vo.Popover);
+
+
+    var app = new Vue({
+
+      el: '#app',
+
+      data: function(){
+        return {
+          popoverOpen: false,
+          daySeconds: 0,
+        }
+      },
+
+      created: function(){
+        this.setDaySeconds();
+      },
+
+      mounted: function(){
+        this.daySecondsInterval();
+      },
+
+      methods: {
+
+        setDaySeconds: function(){
+          var dt = new Date();
+          var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+          this.daySeconds = secs;
+        },
+
+        daySecondsInterval: function(){
+          setInterval(function () {
+            this.setDaySeconds();
+          }.bind(this), 1000);
+        },
+
+      },
+
+    });
 
   </script>
 
