@@ -112,10 +112,23 @@ Vue.component('browser', {
   data: function(){
     return {
       widthMobile: false,
+      openCode: false,
     }
   },
 
+  watch: {
+    openCode: function(newVal){
+      if (newVal) {
+        this.$nextTick(function(){
+          var code = this.$refs.code;
+          hljs.highlightBlock(code);
+        });
+      }
+    },
+  },
+
   template: `<div class="browser" :class="{'mod-width-mobile': widthMobile}">
+
 
     <div class="browser-top">
 
@@ -146,6 +159,19 @@ Vue.component('browser', {
 
       <div class="browser-omnibox">{{url}}</div>
 
+
+
+
+
+
+
+      <button type="button" class="browser-omnibox-icon mod-code" :class="{'mod-active': openCode}" @click.prevent="openCode=!openCode" title="Show code">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" version="1.1" width="50px" height="50px">
+        <path d="M 29.125 7.34375 L 17.125 41.34375 L 20.875 42.65625 L 32.875 8.65625 Z M 9.9375 13.375 L 1.25 23.71875 L 0.1875 25 L 1.25 26.28125 L 9.9375 36.65625 L 13.03125 34.09375 L 5.40625 25 L 13 15.9375 Z M 40.0625 13.375 L 37 15.9375 L 44.59375 25 L 37 34.0625 L 40.09375 36.625 L 48.71875 26.28125 L 49.78125 25 L 48.71875 23.71875 Z "/>
+        </svg>
+      </button>
+
+
       <button type="button" class="browser-omnibox-icon mod-width-mobile" :class="{'mod-active': widthMobile}" @click.prevent="widthMobile=!widthMobile" title="Resize to mobile version">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
         <g id="surface1">
@@ -163,7 +189,15 @@ Vue.component('browser', {
     </div>
 
     <div class="browser-window">
+
+      <div v-if="openCode" class="browser-code" ref="code">
+        <slot name="code"></slot>
+      </div>
+
+
       <iframe :src="url" frameborder="0" width="100%" height="400"></iframe>
+
+
     </div>
 
   </div>`,
@@ -178,30 +212,30 @@ Vue.component('browser', {
 
 
 
+
+
+
+
+
+
 /* browser */
-
 var browser = new Vue({
-
   el: '[vue-browser]',
-
   store: store,
-
   data: function(){
     return {
-      badgesOn: false,
     }
   },
-
-  mounted: function(){
-    setTimeout(function () {
-      this.badgesOn = true;
-    }.bind(this), 500);
-  },
-
 });
 
 
 
+
+
+
+
+
+/* remove parsing class from html */
 
 function removeClass(el, className){
   if (el.classList)

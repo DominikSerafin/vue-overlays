@@ -17,9 +17,6 @@
   <!-- Normalize Styles -->
   <link rel="stylesheet" href="./deps/normalize.css" />
 
-  <!-- Highlight Style -->
-  <link rel="stylesheet" href="./deps/hljs-themes/tomorrow.css" />
-
   <!-- GitHub Markdown -->
   <link rel="stylesheet" href="./deps/github-markdown.css" />
 
@@ -293,8 +290,195 @@
             <h2>Basic</h2>
 
             <div vue-browser>
-              <browser url="./examples/basic.html" />
+              <browser url="./examples/basic.html">
+                <div slot="code">
+<pre><code>
+  &#x3C;body&#x3E;
+
+    &#x3C;div id=&#x22;app&#x22;&#x3E;
+
+        &#x3C;p&#x3E;Elapsed seconds this day: &#x7B;&#x7B;daySeconds&#x7D;&#x7D;&#x3C;/p&#x3E;
+
+        &#x3C;button type=&#x22;button&#x22; @click=&#x22;popoverOpen=true&#x22; ref=&#x22;popoverAnchor&#x22;&#x3E;
+          Open Popover
+        &#x3C;/button&#x3E;
+
+
+        &#x3C;Popover
+          :popover-style=&#x22;{boxShadow: &#x27;0 2px 5px 0 rgba(0,0,0,.2)&#x27;, borderRadius:&#x27;5px&#x27;}&#x22;
+          v-if=&#x22;popoverOpen&#x22;
+          @close=&#x22;popoverOpen=false&#x22;
+          :anchor-el=&#x22;$refs.popoverAnchor&#x22;
+          :transform-origin=&#x22;{vertical: &#x27;top&#x27;, horizontal: &#x27;left&#x27;}&#x22;
+          :anchor-origin=&#x22;{vertical: &#x27;top&#x27;, horizontal: &#x27;right&#x27;}&#x22;
+        &#x3E;
+          &#x3C;div style=&#x22;background:white;width:400px;padding:5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.2);&#x22;&#x3E;
+
+            &#x3C;p&#x3E;I&#x27;m content of the popover. &#x3C;/p&#x3E;
+            &#x3C;p&#x3E;Elapsed seconds this day: &#x7B;&#x7B;daySeconds&#x7D;&#x7D;&#x3C;/p&#x3E;
+
+            &#x3C;button type=&#x22;button&#x22; @click=&#x22;popoverOpen=false&#x22;&#x3E;
+              Hide Popover
+            &#x3C;/button&#x3E;
+
+          &#x3C;/div&#x3E;
+        &#x3C;/Popover&#x3E;
+
+
+    &#x3C;/div&#x3E;
+
+
+
+
+    &#x3C;!-- Vue --&#x3E;
+    &#x3C;script src=&#x22;../deps/vue-2.5.16.js&#x22;&#x3E;&#x3C;/script&#x3E;
+
+
+    &#x3C;!-- Library --&#x3E;
+    &#x3C;script src=&#x22;../deps/library/index.js&#x22;&#x3E;&#x3C;/script&#x3E;
+
+
+
+    &#x3C;!-- Script --&#x3E;
+    &#x3C;script&#x3E;
+
+      Vue.component(&#x27;Portal&#x27;, window.vo.Portal);
+      Vue.component(&#x27;Backdrop&#x27;, window.vo.Backdrop);
+      Vue.component(&#x27;Modal&#x27;, window.vo.Modal);
+      Vue.component(&#x27;Popover&#x27;, window.vo.Popover);
+
+
+      var app = new Vue({
+
+        el: &#x27;#app&#x27;,
+
+        data: function(){
+          return {
+            popoverOpen: false,
+            daySeconds: 0,
+          }
+        },
+
+        created: function(){
+          this.setDaySeconds();
+        },
+
+        mounted: function(){
+          this.daySecondsInterval();
+        },
+
+        methods: {
+
+          setDaySeconds: function(){
+            var dt = new Date();
+            var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+            this.daySeconds = secs;
+          },
+
+          daySecondsInterval: function(){
+            setInterval(function () {
+              this.setDaySeconds();
+            }.bind(this), 1000);
+          },
+
+        },
+
+      });
+
+    &#x3C;/script&#x3E;
+
+
+  &#x3C;/body&#x3E;
+
+</code></pre>
+                </div>
+              </browser>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <h2>Some content</h2>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consectetur perferendis, pariatur rerum praesentium maiores inventore debitis aperiam eaque dicta eligendi molestiae enim veritatis officia repellendus obcaecati non commodi nisi!</p>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consectetur perferendis, pariatur rerum praesentium maiores inventore debitis aperiam eaque dicta eligendi molestiae enim veritatis officia repellendus obcaecati non commodi nisi!</p>
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consectetur perferendis, pariatur rerum praesentium maiores inventore debitis aperiam eaque dicta eligendi molestiae enim veritatis officia repellendus obcaecati non commodi nisi!</p>
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe consectetur perferendis, pariatur rerum praesentium maiores inventore debitis aperiam eaque dicta eligendi molestiae enim veritatis officia repellendus obcaecati non commodi nisi!</p>
+
+
+
+
+
+          <h2>Code...</h2>
+<pre><code>
+  var app = new Vue({
+
+    el: &#x27;#app&#x27;,
+
+    data: function(){
+      return {
+        popoverOpen: false,
+        daySeconds: 0,
+      }
+    },
+
+    created: function(){
+      this.setDaySeconds();
+    },
+
+    mounted: function(){
+      this.daySecondsInterval();
+    },
+
+    methods: {
+
+      setDaySeconds: function(){
+        var dt = new Date();
+        var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+        this.daySeconds = secs;
+      },
+
+      daySecondsInterval: function(){
+        setInterval(function () {
+          this.setDaySeconds();
+        }.bind(this), 1000);
+      },
+
+    },
+
+  });
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           </article>
 
@@ -376,6 +560,9 @@
   <!-- Vue -->
   <script src="./deps/vue-2.5.16.js"></script>
   <script src="./deps/vuex-3.0.1.js"></script>
+
+  <!-- Highlight Style -->
+  <link rel="stylesheet" href="./deps/hljs-themes/atom-one-dark.css" />
 
   <!-- Highlight -->
   <script src="./deps/highlight.pack.js"></script>

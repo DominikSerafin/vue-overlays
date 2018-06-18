@@ -3,6 +3,7 @@ body {
 }
 
 
+
 /* iframe */
 iframe {
 
@@ -20,7 +21,7 @@ iframe:before {
   background: white;
   position: relative;
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
 
   max-width: 900px;
@@ -35,10 +36,12 @@ iframe:before {
   border: 0;
   width: 100%;
   height: 500px;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 10px 10px;
   border: 2px solid #ccc;
   border: 2px solid #42b983;
   border-top: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .browser-window iframe {
@@ -46,7 +49,24 @@ iframe:before {
   width: 100%;
   max-width: 100%;
   height: 100%;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 10px 10px;
+}
+
+
+.browser-code {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  font-size: 15px;
+  border-radius: 0 0 0px 0px;
+  overflow: auto;
+}
+.browser-code pre {
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -55,7 +75,7 @@ iframe:before {
   background: #42b983;
 
   width: 100%;
-  border-radius: 5px 5px 0 0;
+  border-radius: 10px 10px 0 0;
   display: block;
   padding: 4px 8px;
 
@@ -121,6 +141,52 @@ iframe:before {
 
 
 
+
+
+
+
+
+.browser-omnibox-icon.mod-code {
+  margin-right: 0;
+}
+.browser-omnibox-icon.mod-code svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+@media (max-width: 500px) {
+  .browser-omnibox-icon.mod-code {
+    display: none;
+  }
+}
+
+
+.browser-omnibox-icon.mod-code svg path {
+  fill: rgba(255,255,255,.6);
+}
+
+.browser-omnibox-icon.mod-code.mod-active svg path {
+  fill: rgba(255,255,255,.95);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .browser-omnibox-icon.mod-width-mobile svg {
   width: 20px;
   height: 20px;
@@ -143,6 +209,15 @@ iframe:before {
 }
 
 
+
+
+
+
+
+
+
+
+
 .browser-omnibox-icon.mod-external svg path
 {
   fill: #fff;
@@ -153,6 +228,23 @@ iframe:before {
   height: 20px;
   margin-top: 6px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -228,11 +320,27 @@ iframe:before {
       padding-right: 20px;
     }
 
+    .content.content pre {
+      border-radius: 10px;
+      background: transparent;
+      background: #282c34;
+    }
+
+
     @media(max-width: 960px) {
       .content {
         padding: 20px;
       }
     }
+
+
+
+
+
+
+
+
+
 
 
     .content-footer {
