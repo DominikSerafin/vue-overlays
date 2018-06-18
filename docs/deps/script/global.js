@@ -157,10 +157,19 @@ Vue.component('browser', {
         </svg>
       </div>
 
-      <div class="browser-omnibox">{{url}}</div>
+      <div class="browser-omnibox">
+
+        {{url}}
 
 
 
+        <a :href="url" target="_blank" rel="noopener noreferrer" class="browser-omnibox-icon mod-external" title="Open URL in new tab">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+          <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z" font-weight="400" font-family="sans-serif" white-space="normal" overflow="visible"/>
+          </svg>
+        </a>
+
+      </div>
 
 
 
@@ -173,25 +182,19 @@ Vue.component('browser', {
 
 
       <button type="button" class="browser-omnibox-icon mod-width-mobile" :class="{'mod-active': widthMobile}" @click.prevent="widthMobile=!widthMobile" title="Resize to mobile version">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" version="1.1" width="24px" height="24px">
-        <g id="surface1">
-        <path style=" " d="M 17 2 L 7 2 C 5.898438 2 5 2.898438 5 4 L 5 20 C 5 21.101563 5.898438 22 7 22 L 17 22 C 18.101563 22 19 21.101563 19 20 L 19 4 C 19 2.898438 18.101563 2 17 2 Z M 12 21 C 11.449219 21 11 20.550781 11 20 C 11 19.449219 11.449219 19 12 19 C 12.550781 19 13 19.449219 13 20 C 13 20.550781 12.550781 21 12 21 Z M 17 18 L 7 18 L 7 5 L 17 5 Z "/>
-        </g>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+          <path d="M21,1H9C7.895,1,7,1.895,7,3v24c0,1.105,0.895,2,2,2h12c1.105,0,2-0.895,2-2V3C23,1.895,22.105,1,21,1z M15,27 c-0.552,0-1-0.448-1-1c0-0.552,0.448-1,1-1s1,0.448,1,1C16,26.552,15.552,27,15,27z M21,24H9V4h12V24z"/>
         </svg>
       </button>
 
-      <a :href="url" target="_blank" rel="noopener noreferrer" class="browser-omnibox-icon mod-external" title="Open URL in new tab">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
-        <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 12 L 19 12 L 19 19 L 5 19 L 5 5 L 12 5 L 12 3 L 5 3 z M 14 3 L 14 5 L 17.585938 5 L 8.2929688 14.292969 L 9.7070312 15.707031 L 19 6.4140625 L 19 10 L 21 10 L 21 3 L 14 3 z" font-weight="400" font-family="sans-serif" white-space="normal" overflow="visible"/>
-        </svg>
-      </a>
+
 
     </div>
 
     <div class="browser-window">
 
-      <div v-if="openCode" class="browser-code" ref="code">
-        <slot name="code"></slot>
+      <div v-if="openCode" class="browser-code" >
+        <span ref="code"><slot name="code"></slot></span>
       </div>
 
 
