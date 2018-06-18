@@ -244,16 +244,21 @@ iframe:before {
     transition-property: transform;
     border-radius: 4px;
     background-color: #333;
+    background-color: #fff;
+    background-color: rgba(255,255,255,.8);
   }
 
   .hamburger .hamburger-inner, .hamburger .hamburger-inner:after, .hamburger .hamburger-inner:before {
     background-color: #555;
     background-color: #333;
+    background-color: #fff;
+    background-color: rgba(255,255,255,.8);
   }
 
   .hamburger.mod-active .hamburger-inner, .hamburger.mod-active .hamburger-inner:after, .hamburger.mod-active .hamburger-inner:before {
     background-color: #222;
     background-color: #333;
+    background-color: rgba(255,255,255,.8);
   }
 
 
@@ -339,12 +344,15 @@ iframe:before {
     height: 50px;
 
     background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
+
+
     /*background: rgba(255,255,255,.9);*/
-    border-bottom: 1px solid #eee;
-
-    /*box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);*/
 
 
+
+    /*border-bottom: 1px solid #eee; */
+    background: #42b983;
   }
 
 
@@ -363,6 +371,7 @@ iframe:before {
     align-content: flex-start;
     padding: 0 20px;
     box-sizing: border-box;
+
   }
   @media(max-width: 1240px) {
     .topbar {
@@ -391,7 +400,7 @@ iframe:before {
       border: none;
       box-shadow: none;
       margin: 0;
-      padding: 15px 5px 14px 5px;
+      padding: 14px 5px 14px 5px;
       cursor: pointer;
       outline-color: #ddd;
       margin-right: 5px;
@@ -410,13 +419,16 @@ iframe:before {
       font-size: 17px;
       font-weight: 600;
       line-height: 1.4;
-      margin-top: 8px;
+      margin-top: 13px;
 
+      /*
       padding: 6px 12px;
       background: #333;
       background: #42b983;
-      color: rgba(255,255,255,1);
       border-radius: 4px;
+      */
+
+      color: rgba(255,255,255,1);
     }
 
     .topbar-title > span:nth-of-type(1) {
@@ -454,10 +466,10 @@ iframe:before {
     .topbar-badge-link img {
       border-radius: 2px;
       transition: all 140ms ease-in-out;
-      filter: grayscale(100%);
+      /*filter: grayscale(100%);*/
     }
     .topbar-badge-link:hover img {
-      filter: grayscale(0%);
+      /*filter: grayscale(0%);*/
     }
 
     @media (max-width: 960px) {
@@ -481,11 +493,11 @@ iframe:before {
       height: 20px;
     }
     .topbar-icon-link.mod-github svg path {
-      fill: rgba(0,0,0,.4);
+      fill: rgba(255,255,255,.6);
       transition: all 80ms ease-in-out;
     }
     .topbar-icon-link.mod-github:hover svg path {
-      fill: rgba(0,0,0,1);
+      fill: rgba(255,255,255,1);
     }
 
 
@@ -494,13 +506,18 @@ iframe:before {
       height: 20px;
     }
 
+
+    .topbar-icon-link.mod-npm svg path {
+      fill: #42b983;
+    }
+
     .topbar-icon-link.mod-npm svg rect {
-      fill: rgba(0,0,0,.4);
+      fill: rgba(255,255,255,.6);
       transition: 80ms ease-in-out;
     }
 
     .topbar-icon-link.mod-npm:hover svg rect {
-      fill: #cb3837;
+      fill: white;
     }
 
 
